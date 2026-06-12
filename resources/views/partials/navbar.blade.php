@@ -4,9 +4,9 @@
 
             {{-- Logo & Brand --}}
             <a href="{{ url('/') }}" class="flex items-center gap-3 shrink-0">
-                {{-- Logo mark: triangle + AISI text --}}
-                <div class="flex items-center gap-1">
-                    <span class="text-accent text-2xl leading-none select-none">▲</span>
+                {{-- Logo mark: image + AISI text --}}
+                <div class="flex items-center gap-2">
+                    <img src="{{ asset('image/logo/logo.png') }}" alt="Logo PT Aisi Aiken Indonesia" class="h-8 w-auto object-contain">
                     <span class="text-white font-extrabold text-xl tracking-widest">AISI</span>
                 </div>
                 <div class="hidden sm:block border-l border-white/20 pl-3">

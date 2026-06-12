@@ -28,6 +28,10 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName('PT Aisi Aiken Indonesia')
+            ->brandLogo(asset('image/logo/logo.png'))
+            ->brandLogoHeight('2.5rem')
+            ->favicon(asset('image/logo/logo.png'))
             ->colors([
                 'primary' => Color::Amber,
             ])

@@ -10,7 +10,7 @@
             {{-- Column 1: Brand & About --}}
             <div class="space-y-4">
                 <div class="flex items-center gap-2">
-                    <span class="text-accent text-2xl leading-none">▲</span>
+                    <img src="{{ asset('image/logo/logo.png') }}" alt="Logo PT Aisi Aiken Indonesia" class="h-8 w-auto object-contain">
                     <span class="text-white font-extrabold text-xl tracking-widest">AISI</span>
                 </div>
                 <div>
