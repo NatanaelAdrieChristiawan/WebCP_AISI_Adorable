@@ -28,3 +28,8 @@ Thumbs.db
 
 /.agents/
 /skills-lock.json
+/.clinerules/
+/.windsurf/
+/.opencode/
+/AGENTS.md
+/.github/copilot-instructions.md

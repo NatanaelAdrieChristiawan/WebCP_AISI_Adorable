@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
 use App\Models\Client;
+use App\Models\CompanySetting;
 use App\Models\Product;
 
 class HomeController extends Controller
@@ -27,6 +28,9 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
-        return view('pages.home', compact('featuredProducts', 'featuredClients', 'latestPosts'));
+        $companyProfileUrl = CompanySetting::getFileUrl('company_profile_file');
+
+        return view('pages.home', compact('featuredProducts', 'featuredClients', 'latestPosts', 'companyProfileUrl'));
     }
 }
+

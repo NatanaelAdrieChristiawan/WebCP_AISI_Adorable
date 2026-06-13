@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             ['key' => 'company_short_name',   'value' => 'AISI',                              'type' => 'text',     'label' => 'Nama Singkat',             'group' => 'general', 'sort_order' => 3],
             ['key' => 'company_logo',         'value' => null,                                'type' => 'file',     'label' => 'Logo Perusahaan',          'group' => 'general', 'sort_order' => 4],
             ['key' => 'company_favicon',      'value' => null,                                'type' => 'file',     'label' => 'Favicon',                  'group' => 'general', 'sort_order' => 5],
+            ['key' => 'company_profile_file', 'value' => null,                                'type' => 'file',     'label' => 'File Company Profile (PDF)', 'group' => 'general', 'sort_order' => 6],
             // About
             ['key' => 'company_vision',       'value' => 'Menjadi penyedia produk Fire Protection dan Fire Fighting dengan kualitas terbaik dan ramah lingkungan.', 'type' => 'textarea', 'label' => 'Visi', 'group' => 'about', 'sort_order' => 1],
             ['key' => 'company_mission',      'value' => 'Menjadi pemimpin pasar di bidang Fire Protection dan Fire Fighting dengan produk berkualitas tinggi, serta memberikan layanan prima kepada seluruh pelanggan kami.', 'type' => 'textarea', 'label' => 'Misi', 'group' => 'about', 'sort_order' => 2],
