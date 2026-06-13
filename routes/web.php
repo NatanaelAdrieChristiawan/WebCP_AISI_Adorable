@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProductController;
@@ -17,3 +18,12 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// Serve private certificate files
+Route::get('/certifications/view/{filename}', function (string $filename) {
+    $path = 'certifications/' . $filename;
+    if (!Storage::disk('local')->exists($path)) {
+        abort(404);
+    }
+    return Storage::disk('local')->response($path);
+})->name('certification.file')->where('filename', '[^/]+');

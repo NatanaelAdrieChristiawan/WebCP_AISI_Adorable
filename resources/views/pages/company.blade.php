@@ -397,10 +397,113 @@
             />
         </div>
 
+        {{-- Certificate Modal --}}
+        <div
+            id="cert-modal"
+            class="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+            style="display:none;"
+            onclick="closeCertModal(event)"
+        >
+            {{-- Backdrop --}}
+            <div id="cert-modal-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
+            {{-- Modal Panel --}}
+            <div
+                id="cert-modal-panel"
+                class="relative z-10 bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden
+                       opacity-0 scale-95 transition-all duration-300"
+                onclick="event.stopPropagation()"
+            >
+                {{-- Modal Header --}}
+                <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 shrink-0">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 id="cert-modal-title" class="font-bold text-text-dark text-base leading-tight"></h3>
+                            <p id="cert-modal-subtitle" class="text-xs text-text-light mt-0.5"></p>
+                        </div>
+                    </div>
+                    <button
+                        onclick="closeCertModal()"
+                        class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors duration-200"
+                        aria-label="Tutup"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Image Container --}}
+                <div class="flex-1 overflow-auto bg-slate-50 flex items-center justify-center p-4 min-h-0">
+                    <div id="cert-modal-loading" class="flex flex-col items-center gap-3 py-16">
+                        <div class="w-10 h-10 border-3 border-primary/20 border-t-primary rounded-full animate-spin"
+                             style="border-width: 3px;"></div>
+                        <p class="text-sm text-text-light">Memuat sertifikat…</p>
+                    </div>
+                    <img
+                        id="cert-modal-img"
+                        src=""
+                        alt="Sertifikat"
+                        class="max-w-full max-h-full object-contain rounded-lg shadow-md hidden"
+                        style="max-height: calc(90vh - 180px);"
+                        onload="onCertImgLoad()"
+                        onerror="onCertImgError()"
+                    />
+                </div>
+
+                {{-- Modal Footer --}}
+                <div class="px-6 py-3 border-t border-slate-100 shrink-0 flex items-center justify-between bg-white">
+                    <div id="cert-modal-meta" class="flex items-center gap-4 text-xs text-text-light"></div>
+                    <a
+                        id="cert-modal-link"
+                        href="#"
+                        target="_blank"
+                        class="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-accent transition-colors duration-200"
+                    >
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        Buka di tab baru
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{-- /Certificate Modal --}}
+
         @if ($certifications->isNotEmpty())
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             @foreach ($certifications as $cert)
-            <div class="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:border-accent/40 hover:shadow-lg transition-all duration-300">
+            @php
+                $hasFile = !empty($cert->certificate_file);
+                $fileUrl  = $hasFile
+                    ? route('certification.file', basename($cert->certificate_file))
+                    : null;
+            @endphp
+            <div
+                class="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm
+                       hover:border-accent/40 hover:shadow-lg transition-all duration-300
+                       {{ $hasFile ? 'cursor-pointer select-none' : '' }}"
+                @if($hasFile)
+                onclick="openCertModal(
+                    '{{ e($cert->certificate_name) }}',
+                    '{{ e($cert->issuing_body) }}',
+                    '{{ e($fileUrl) }}',
+                    '{{ $cert->certificate_number ? 'No. ' . e($cert->certificate_number) : '' }}',
+                    '{{ $cert->valid_until ? 'Berlaku s/d ' . $cert->valid_until->format('d M Y') : '' }}'
+                )"
+                role="button"
+                tabindex="0"
+                aria-label="Lihat sertifikat {{ $cert->certificate_name }}"
+                onkeydown="if(event.key==='Enter'||event.key===' ') this.click()"
+                @endif
+            >
                 <div class="flex items-start gap-5">
                     {{-- Certificate icon --}}
                     <div class="shrink-0 w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
@@ -416,12 +519,23 @@
                             <h3 class="font-bold text-text-dark text-base leading-snug">
                                 {{ $cert->certificate_name }}
                             </h3>
-                            @if ($cert->is_active)
-                            <span class="shrink-0 inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200">
-                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                Aktif
-                            </span>
-                            @endif
+                            <div class="flex items-center gap-2 shrink-0">
+                                @if ($cert->is_active)
+                                <span class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                    Aktif
+                                </span>
+                                @endif
+                                @if ($hasFile)
+                                <span class="inline-flex items-center gap-1 bg-primary/8 text-primary text-xs font-medium px-2.5 py-1 rounded-full border border-primary/20 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    </svg>
+                                    Lihat
+                                </span>
+                                @endif
+                            </div>
                         </div>
                         <p class="text-sm text-text-light mb-3">{{ $cert->issuing_body }}</p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-text-light">
@@ -511,6 +625,95 @@
 
     </div>
 </section>
+
+{{-- Certificate Modal Script --}}
+@push('scripts')
+<script>
+(function () {
+    const modal     = document.getElementById('cert-modal');
+    const backdrop  = document.getElementById('cert-modal-backdrop');
+    const panel     = document.getElementById('cert-modal-panel');
+    const titleEl   = document.getElementById('cert-modal-title');
+    const subtitleEl = document.getElementById('cert-modal-subtitle');
+    const loading   = document.getElementById('cert-modal-loading');
+    const img       = document.getElementById('cert-modal-img');
+    const metaEl    = document.getElementById('cert-modal-meta');
+    const linkEl    = document.getElementById('cert-modal-link');
+
+    window.openCertModal = function (name, body, url, number, valid) {
+        // Populate
+        titleEl.textContent   = name;
+        subtitleEl.textContent = body;
+        linkEl.href = url;
+
+        // Meta
+        let metaHtml = '';
+        if (number) metaHtml += `<span class="flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/>
+            </svg>${number}</span>`;
+        if (valid) metaHtml += `<span class="flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>${valid}</span>`;
+        metaEl.innerHTML = metaHtml;
+
+        // Reset image state
+        img.classList.add('hidden');
+        img.src = '';
+        loading.classList.remove('hidden');
+
+        // Show modal
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+
+        // Animate in (rAF ensures display:flex is painted first)
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                backdrop.style.opacity = '1';
+                panel.style.opacity    = '1';
+                panel.style.transform  = 'scale(1)';
+            });
+        });
+
+        // Load image
+        img.src = url;
+    };
+
+    window.closeCertModal = function (e) {
+        if (e && e.target !== modal && e.target !== backdrop) return;
+        backdrop.style.opacity = '0';
+        panel.style.opacity    = '0';
+        panel.style.transform  = 'scale(0.95)';
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+            img.src = '';
+        }, 280);
+    };
+
+    window.onCertImgLoad = function () {
+        loading.classList.add('hidden');
+        img.classList.remove('hidden');
+    };
+
+    window.onCertImgError = function () {
+        loading.innerHTML = `<svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M12 9v2m0 4h.01M5.07 19H19a2 2 0 001.75-2.96l-7-12a2 2 0 00-3.5 0l-7 12A2 2 0 005.07 19z"/>
+        </svg>
+        <p class="text-sm text-text-light">Gagal memuat sertifikat.</p>`;
+    };
+
+    // Escape key close
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+            closeCertModal();
+        }
+    });
+})();
+</script>
+@endpush
 
 {{-- ============================================================
      SECTION G — KEUNGGULAN KOMPETENSI
