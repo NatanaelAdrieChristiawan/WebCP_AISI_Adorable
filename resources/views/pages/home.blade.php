@@ -326,53 +326,114 @@
 </section>
 
 {{-- ============================================================
-     SECTION E — KLIEN / CUSTOMER HIGHLIGHT
+     SECTION E — KLIEN / CUSTOMER HIGHLIGHT (MARQUEE)
      ============================================================ --}}
-<section class="py-16 md:py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-16 md:py-24 bg-white overflow-hidden">
 
-        <div class="text-center mb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <div class="text-center">
             <x-section-title
                 title="Dipercaya oleh Perusahaan Terkemuka"
                 subtitle="Kami bangga menjadi mitra fire protection terpercaya bagi berbagai perusahaan industri terkemuka di Indonesia."
                 align="center"
             />
         </div>
-
-        @if ($featuredClients->isNotEmpty())
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
-            @foreach ($featuredClients as $client)
-            <div class="group flex items-center justify-center p-5 rounded-xl border border-slate-100 bg-slate-50 hover:border-accent/40 hover:bg-white hover:shadow-md transition-all duration-300 grayscale hover:grayscale-0">
-                @if ($client->logo)
-                    <img src="{{ Storage::url($client->logo) }}"
-                         alt="{{ $client->name }}"
-                         class="max-h-10 max-w-full object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300">
-                @else
-                    <span class="text-sm font-bold text-text-light group-hover:text-primary transition-colors duration-300 text-center leading-tight">
-                        {{ $client->name }}
-                    </span>
-                @endif
-            </div>
-            @endforeach
-        </div>
-        @else
-        {{-- Placeholder client logos --}}
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
-            @foreach (['PT Astra Internasional', 'PT Pertamina', 'PT Unilever', 'PT Toyota', 'PT Telkom', 'PT Bank BRI', 'PT PLN', 'PT Sinarmas', 'PT Indofood', 'Schneider Electric', 'PT Waskita', 'Siemens'] as $clientName)
-            <div class="flex items-center justify-center p-5 rounded-xl border border-slate-100 bg-slate-50 hover:border-accent/30 hover:bg-white transition-all duration-300">
-                <span class="text-xs font-bold text-text-light text-center leading-tight">{{ $clientName }}</span>
-            </div>
-            @endforeach
-        </div>
-        @endif
-
-        {{-- Tagline --}}
-        <p class="text-center text-text-light text-sm mt-8">
-            Dan ratusan perusahaan lainnya di seluruh Indonesia yang telah mempercayakan keamanan mereka kepada AISI.
-        </p>
-
     </div>
+
+    {{-- Marquee track --}}
+    <div class="relative">
+        {{-- Fade edges: left & right gradient mask --}}
+        <div class="pointer-events-none absolute inset-y-0 left-0 w-24 md:w-40 z-10
+                    bg-gradient-to-r from-white to-transparent"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 w-24 md:w-40 z-10
+                    bg-gradient-to-l from-white to-transparent"></div>
+
+        {{-- Scrolling row — CSS animation only, no JS --}}
+        <div class="flex" aria-label="Daftar klien PT Aisi Aiken Indonesia">
+            <div class="marquee-track flex items-center gap-6 py-2 animate-marquee hover:pause-marquee">
+                @php
+                    $clientItems = $featuredClients->isNotEmpty()
+                        ? $featuredClients->all()
+                        : collect([
+                            'Toyota Motor Manufacturing Indonesia',
+                            'BYD Motor Indonesia',
+                            'VinFast Automobile Indonesia',
+                            'DFSK / Sokonindo Automobile',
+                            'Kayaba Indonesia',
+                            'Astra NTN Driveshaft Indonesia',
+                            'Mitsubishi Logistics Indonesia',
+                        ])->map(fn($n) => (object)['name' => $n, 'logo' => null])->all();
+                @endphp
+
+                {{-- First copy --}}
+                @foreach ($clientItems as $client)
+                    <div class="marquee-card group flex-shrink-0 flex items-center justify-center
+                                min-w-[160px] px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50
+                                hover:border-accent/40 hover:bg-white hover:shadow-md
+                                transition-all duration-300">
+                        @if (!empty($client->logo))
+                            <img src="{{ Storage::url($client->logo) }}"
+                                 alt="{{ $client->name }}"
+                                 class="max-h-10 max-w-[120px] object-contain
+                                        opacity-50 grayscale group-hover:opacity-100 group-hover:grayscale-0
+                                        transition-all duration-300">
+                        @else
+                            <span class="text-xs font-bold text-text-light group-hover:text-primary
+                                         transition-colors duration-300 text-center leading-tight select-none">
+                                {{ $client->name }}
+                            </span>
+                        @endif
+                    </div>
+                @endforeach
+
+                {{-- Duplicate copy for seamless loop --}}
+                @foreach ($clientItems as $client)
+                    <div class="marquee-card group flex-shrink-0 flex items-center justify-center
+                                min-w-[160px] px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50
+                                hover:border-accent/40 hover:bg-white hover:shadow-md
+                                transition-all duration-300" aria-hidden="true">
+                        @if (!empty($client->logo))
+                            <img src="{{ Storage::url($client->logo) }}"
+                                 alt=""
+                                 class="max-h-10 max-w-[120px] object-contain
+                                        opacity-50 grayscale group-hover:opacity-100 group-hover:grayscale-0
+                                        transition-all duration-300">
+                        @else
+                            <span class="text-xs font-bold text-text-light group-hover:text-primary
+                                         transition-colors duration-300 text-center leading-tight select-none">
+                                {{ $client->name }}
+                            </span>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    {{-- Tagline --}}
+    <p class="text-center text-text-light text-sm mt-10 px-4">
+        Dan ratusan perusahaan lainnya di seluruh Indonesia yang telah mempercayakan keamanan mereka kepada AISI.
+    </p>
+
 </section>
+
+@push('head')
+<style>
+    /* ── Marquee animation ── */
+    @keyframes marquee {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+        animation: marquee 30s linear infinite;
+        will-change: transform;
+    }
+    /* Pause on hover anywhere in the track */
+    .animate-marquee:hover {
+        animation-play-state: paused;
+    }
+</style>
+@endpush
 
 {{-- ============================================================
      SECTION F — ARTIKEL TERBARU

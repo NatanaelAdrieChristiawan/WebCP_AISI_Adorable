@@ -22,6 +22,7 @@
     <style>[x-cloak] { display: none !important; }</style>
 
     @yield('head')
+    @stack('head')
 </head>
 <body class="bg-white text-text-dark antialiased">
 
