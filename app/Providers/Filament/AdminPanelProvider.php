@@ -27,13 +27,13 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(\App\Filament\Pages\Auth\CustomLogin::class)
             ->brandName('PT Aisi Aiken Indonesia')
             ->brandLogo(asset('image/logo/logo.png'))
             ->brandLogoHeight('2.5rem')
             ->favicon(asset('image/logo/logo.png'))
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::hex('#c41230'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
