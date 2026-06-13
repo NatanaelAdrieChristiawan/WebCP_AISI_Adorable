@@ -52,13 +52,10 @@
 <section class="py-16 md:py-24 bg-surface">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {{-- Search & Category Filter --}}
-        <form method="GET" action="{{ route('products.index') }}"
-              x-data="{ activeCategory: '{{ request('category', '') }}' }"
-              class="mb-10">
+        <form method="GET" action="{{ route('products.index') }}" class="mb-10">
 
-            {{-- Hidden category field that Alpine updates --}}
-            <input type="hidden" name="category" :value="activeCategory">
+            {{-- Hidden category field updated synchronously via JS --}}
+            <input type="hidden" id="category-input" name="category" value="{{ request('category') }}">
 
             {{-- Search Input --}}
             <div class="relative mb-5">
@@ -90,21 +87,21 @@
 
                 {{-- "Semua" chip --}}
                 <button type="button"
-                        @click="activeCategory = ''; $el.closest('form').submit()"
-                        class="px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-150 border cursor-pointer"
-                        :class="activeCategory === ''
-                            ? 'bg-accent text-white border-accent shadow-sm'
-                            : 'bg-white border-slate-200 text-text-dark hover:border-accent hover:text-accent'">
+                        onclick="document.getElementById('category-input').value = ''; this.closest('form').submit()"
+                        class="px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-150 border cursor-pointer
+                            {{ request('category', '') === ''
+                                ? 'bg-accent text-white border-accent shadow-sm'
+                                : 'bg-white border-slate-200 text-text-dark hover:border-accent hover:text-accent' }}">
                     Semua
                 </button>
 
                 @foreach ($categories as $cat)
                     <button type="button"
-                            @click="activeCategory = '{{ $cat->slug }}'; $el.closest('form').submit()"
-                            class="px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-150 border cursor-pointer"
-                            :class="activeCategory === '{{ $cat->slug }}'
-                                ? 'bg-accent text-white border-accent shadow-sm'
-                                : 'bg-white border-slate-200 text-text-dark hover:border-accent hover:text-accent'">
+                            onclick="document.getElementById('category-input').value = '{{ $cat->slug }}'; this.closest('form').submit()"
+                            class="px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-150 border cursor-pointer
+                                {{ request('category') === $cat->slug
+                                    ? 'bg-accent text-white border-accent shadow-sm'
+                                    : 'bg-white border-slate-200 text-text-dark hover:border-accent hover:text-accent' }}">
                         {{ $cat->name }}
                     </button>
                 @endforeach
