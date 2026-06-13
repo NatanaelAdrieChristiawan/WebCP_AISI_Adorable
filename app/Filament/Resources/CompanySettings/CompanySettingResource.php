@@ -22,6 +22,8 @@ class CompanySettingResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Company Info';
 
+    protected static bool $shouldRegisterNavigation = false;
+
     public static function form(Schema $schema): Schema
     {
         return CompanySettingForm::configure($schema);
