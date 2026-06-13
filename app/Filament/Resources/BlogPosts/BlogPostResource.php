@@ -20,6 +20,8 @@ class BlogPostResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-newspaper';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Content & Media';
+
     public static function form(Schema $schema): Schema
     {
         return BlogPostForm::configure($schema);

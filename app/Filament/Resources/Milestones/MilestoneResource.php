@@ -20,6 +20,8 @@ class MilestoneResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-clock';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Company Info';
+
     public static function form(Schema $schema): Schema
     {
         return MilestoneForm::configure($schema);

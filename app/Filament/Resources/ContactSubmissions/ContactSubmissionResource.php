@@ -20,6 +20,8 @@ class ContactSubmissionResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-inbox';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'User Messages';
+
     public static function form(Schema $schema): Schema
     {
         return ContactSubmissionForm::configure($schema);

@@ -20,6 +20,8 @@ class CertificationResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-check';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Company Info';
+
     public static function form(Schema $schema): Schema
     {
         return CertificationForm::configure($schema);
