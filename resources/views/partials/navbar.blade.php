@@ -29,7 +29,10 @@
                 @endphp
 
                 @foreach ($navLinks as $link)
-                    @php $isActive = request()->is(ltrim($link['url'], '/') ?: '/') || (request()->is('/') && $link['url'] === '/'); @endphp
+                    @php
+                        $urlPath = ltrim($link['url'], '/');
+                        $isActive = ($urlPath === '') ? request()->is('/') : (request()->is($urlPath) || request()->is($urlPath . '/*'));
+                    @endphp
                     <a href="{{ url($link['url']) }}"
                        class="relative px-4 py-2 text-sm font-medium transition-colors duration-150
                               {{ $isActive
@@ -83,8 +86,11 @@
          x-transition:leave-end="opacity-0 -translate-y-2"
          class="md:hidden bg-primary-dark border-t border-white/10">
         <div class="px-4 py-3 space-y-1">
-            @foreach ($navLinks as $link)
-                @php $isActive = request()->is(ltrim($link['url'], '/') ?: '/') || (request()->is('/') && $link['url'] === '/'); @endphp
+             @foreach ($navLinks as $link)
+                @php
+                    $urlPath = ltrim($link['url'], '/');
+                    $isActive = ($urlPath === '') ? request()->is('/') : (request()->is($urlPath) || request()->is($urlPath . '/*'));
+                @endphp
                 <a href="{{ url($link['url']) }}"
                    @click="mobileOpen = false"
                    class="flex items-center gap-3 px-3 py-2.5 rounded text-sm font-medium transition-colors duration-150
