@@ -45,7 +45,7 @@
 {{-- ============================================================
      SECTION B — GALLERY GRID
      ============================================================ --}}
-<section class="py-16 md:py-24 bg-surface">
+<section class="py-16 md:py-24 bg-surface" x-data="{ lightboxOpen: false, activeImage: '', activeTitle: '' }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         @if ($galleries->isNotEmpty())
@@ -53,9 +53,10 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             @foreach ($galleries as $item)
             <div
-                x-data="{ lightboxOpen: false }"
                 class="group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
-                @click="lightboxOpen = true"
+                @if ($item->image && Storage::disk('public')->exists($item->image))
+                    @click="activeImage = '{{ Storage::url($item->image) }}'; activeTitle = '{{ str_replace('\'', '\\\'', $item->title) }}'; lightboxOpen = true"
+                @endif
             >
                 {{-- Photo --}}
                 <div class="relative aspect-square overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200">
@@ -92,53 +93,6 @@
                 <div class="px-4 py-3">
                     <p class="font-semibold text-text-dark text-sm leading-snug line-clamp-2">{{ $item->title }}</p>
                 </div>
-
-                {{-- Lightbox Modal --}}
-                <div
-                    x-show="lightboxOpen"
-                    x-cloak
-                    @click.self="lightboxOpen = false"
-                    @keydown.escape.window="lightboxOpen = false"
-                    x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100"
-                    x-transition:leave="transition ease-in duration-150"
-                    x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0"
-                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-                >
-                    <div
-                        x-transition:enter="transition ease-out duration-300"
-                        x-transition:enter-start="scale-90 opacity-0"
-                        x-transition:enter-end="scale-100 opacity-100"
-                        class="relative max-w-3xl w-full"
-                    >
-                        {{-- Close button --}}
-                        <button
-                            @click="lightboxOpen = false"
-                            class="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors"
-                        >
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        </button>
-
-                        {{-- Full image --}}
-                        @if ($item->image && Storage::disk('public')->exists($item->image))
-                            <img
-                                src="{{ Storage::url($item->image) }}"
-                                alt="{{ $item->title }}"
-                                class="w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl"
-                            >
-                        @endif
-
-                        {{-- Caption --}}
-                        <div class="mt-4 text-center">
-                            <p class="text-white font-semibold text-base">{{ $item->title }}</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
             @endforeach
         </div>
@@ -147,6 +101,50 @@
         <p class="text-center text-text-light text-sm mt-10">
             Menampilkan <strong class="text-text-dark">{{ $galleries->count() }}</strong> foto fasilitas & kegiatan PT Aisi Aiken Indonesia.
         </p>
+
+        {{-- Lightbox Modal (Global - Placed outside the transformed layout) --}}
+        <div
+            x-show="lightboxOpen"
+            x-cloak
+            @click.self="lightboxOpen = false"
+            @keydown.escape.window="lightboxOpen = false"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+        >
+            <div
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="scale-90 opacity-0"
+                x-transition:enter-end="scale-100 opacity-100"
+                class="relative max-w-3xl w-full"
+            >
+                {{-- Close button --}}
+                <button
+                    @click="lightboxOpen = false"
+                    class="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors"
+                >
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+
+                {{-- Full image --}}
+                <img
+                    :src="activeImage"
+                    :alt="activeTitle"
+                    class="w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl"
+                >
+
+                {{-- Caption --}}
+                <div class="mt-4 text-center">
+                    <p class="text-white font-semibold text-base" x-text="activeTitle"></p>
+                </div>
+            </div>
+        </div>
 
         @else
         {{-- Empty state --}}
