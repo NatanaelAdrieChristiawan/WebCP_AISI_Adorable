@@ -16,15 +16,20 @@ class ProductsTable
     {
         return $table
             ->columns([
+                ImageColumn::make('image')
+                    ->square()
+                    ->size(100),
+                TextColumn::make('name')
+                    ->searchable()
+                    ->weight('bold'),
                 TextColumn::make('category.name')
                     ->searchable(),
-                TextColumn::make('name')
-                    ->searchable(),
                 TextColumn::make('slug')
-                    ->searchable(),
-                ImageColumn::make('image'),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('whatsapp_message')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 IconColumn::make('is_featured')
                     ->boolean(),
                 IconColumn::make('is_active')
@@ -40,6 +45,10 @@ class ProductsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->contentGrid([
+                'md' => 2,
+                'lg' => 3,
             ])
             ->filters([
                 //
