@@ -257,14 +257,27 @@
         {{-- ════════════════════════════
              PETA GOOGLE MAPS EMBED
              ════════════════════════════ --}}
-        <div class="mt-16 rounded-2xl overflow-hidden shadow-sm border border-slate-100 h-[450px]">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.2536294711317!2d107.1711111!3d-6.3611111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e699b0000000001%3A0x0!2zNsKwMjEnNDAuMCJTIMAxMDfCsDEwJzE2LjAiRQ!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
-                    width="100%"
-                    height="100%"
-                    style="border:0;"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
+        <div class="mt-16 rounded-2xl overflow-hidden shadow-sm border border-slate-100 relative" style="height:450px;">
+            {{-- Open in Maps button overlay --}}
+            <a href="https://maps.app.goo.gl/KkkfY8A5Qv8fhUBf6"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="absolute top-4 left-4 z-10 inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-primary font-semibold text-sm px-4 py-2 rounded-lg shadow-md border border-slate-200 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+            >
+                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+                Buka di Maps
+            </a>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.302536194229!2d107.14372440000001!3d-6.354868900000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e699a33f5f83bdd%3A0xe3b0230b7b73deed!2sPT.%20Aisi%20Aiken%20Indonesia!5e0!3m2!1sid!2sid!4v1749823200000!5m2!1sid!2sid"
+                width="100%"
+                height="100%"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
             </iframe>
         </div>
 
