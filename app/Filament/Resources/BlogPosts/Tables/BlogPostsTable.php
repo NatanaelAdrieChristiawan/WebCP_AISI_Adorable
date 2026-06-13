@@ -15,9 +15,9 @@ class BlogPostsTable
     {
         return $table
             ->columns([
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('index')
+                    ->label('No.')
+                    ->rowIndex(),
                 TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('slug')
