@@ -19,11 +19,14 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-// Serve private certificate files
+// Serve private or public certificate files
 Route::get('/certifications/view/{filename}', function (string $filename) {
     $path = 'certifications/' . $filename;
-    if (!Storage::disk('local')->exists($path)) {
-        abort(404);
+    if (Storage::disk('public')->exists($path)) {
+        return Storage::disk('public')->response($path);
     }
-    return Storage::disk('local')->response($path);
+    if (Storage::disk('local')->exists($path)) {
+        return Storage::disk('local')->response($path);
+    }
+    abort(404);
 })->name('certification.file')->where('filename', '[^/]+');

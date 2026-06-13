@@ -48,6 +48,7 @@ class ProductForm
                 FileUpload::make('gallery')
                     ->image()
                     ->multiple()
+                    ->panelLayout('grid')
                     ->directory('products/gallery')
                     ->columnSpanFull(),
                 TextInput::make('whatsapp_message')
