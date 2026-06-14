@@ -8,7 +8,7 @@
 {{-- ============================================================
      SECTION A — HERO BANNER
      ============================================================ --}}
-<section class="bg-primary py-16 md:py-20 relative overflow-hidden">
+<section class="bg-primary py-16 md:py-24 relative overflow-hidden">
     {{-- Decorative triangles --}}
     <div class="absolute -top-12 -right-12 w-72 h-72 opacity-10">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,11 +22,6 @@
     </div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {{-- Breadcrumb --}}
-        <div class="mb-8">
-            <x-breadcrumb :items="[['label' => 'Hubungi Kami']]" />
-        </div>
-
         <div class="max-w-3xl">
             <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6">
                 <span class="w-2 h-2 rounded-full bg-accent"></span>

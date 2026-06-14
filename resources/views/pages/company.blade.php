@@ -22,11 +22,6 @@
     </div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {{-- Breadcrumb --}}
-        <div class="mb-8">
-            <x-breadcrumb :items="[['label' => 'Tentang Kami']]" />
-        </div>
-
         <div class="max-w-3xl">
             <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6">
                 <span class="w-2 h-2 rounded-full bg-accent"></span>
