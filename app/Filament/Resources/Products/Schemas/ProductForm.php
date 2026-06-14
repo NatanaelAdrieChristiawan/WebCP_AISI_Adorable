@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
+use App\Services\ImageService;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -44,12 +45,18 @@ class ProductForm
                 FileUpload::make('image')
                     ->image()
                     ->directory('products')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                    ->maxSize(10240)
+                    ->saveUploadedFileUsing(fn ($file) => ImageService::optimizeAndStore($file, 'products'))
                     ->columnSpanFull(),
                 FileUpload::make('gallery')
                     ->image()
                     ->multiple()
                     ->panelLayout('grid')
                     ->directory('products/gallery')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                    ->maxSize(10240)
+                    ->saveUploadedFileUsing(fn ($file) => ImageService::optimizeAndStore($file, 'products/gallery'))
                     ->columnSpanFull(),
                 TextInput::make('whatsapp_message')
                     ->columnSpanFull()
@@ -66,3 +73,4 @@ class ProductForm
             ]);
     }
 }
+

@@ -355,61 +355,36 @@
         </div>
     </div>
 
-    {{-- Marquee track --}}
+    {{-- Marquee —— JS-powered for pixel-perfect seamless loop --}}
     <div class="relative">
-        {{-- Fade edges: left & right gradient mask --}}
+        {{-- Fade edges --}}
         <div class="pointer-events-none absolute inset-y-0 left-0 w-24 md:w-40 z-10
                     bg-gradient-to-r from-white to-transparent"></div>
         <div class="pointer-events-none absolute inset-y-0 right-0 w-24 md:w-40 z-10
                     bg-gradient-to-l from-white to-transparent"></div>
 
-        {{-- Scrolling row — CSS animation only, no JS --}}
-        <div class="flex" aria-label="Daftar klien PT Aisi Aiken Indonesia">
-            <div class="marquee-track flex items-center gap-6 py-2 animate-marquee hover:pause-marquee">
-                @php
-                    $clientItems = $featuredClients->isNotEmpty()
-                        ? $featuredClients->all()
-                        : collect([
-                            'Toyota Motor Manufacturing Indonesia',
-                            'BYD Motor Indonesia',
-                            'VinFast Automobile Indonesia',
-                            'DFSK / Sokonindo Automobile',
-                            'Kayaba Indonesia',
-                            'Astra NTN Driveshaft Indonesia',
-                            'Mitsubishi Logistics Indonesia',
-                        ])->map(fn($n) => (object)['name' => $n, 'logo' => null])->all();
-                @endphp
+        <div class="overflow-hidden" aria-label="Daftar klien PT Aisi Aiken Indonesia">
+            @php
+                $clientItems = $featuredClients->isNotEmpty()
+                    ? $featuredClients->all()
+                    : collect([
+                        'Toyota Motor Manufacturing Indonesia',
+                        'BYD Motor Indonesia',
+                        'VinFast Automobile Indonesia',
+                        'DFSK / Sokonindo Automobile',
+                        'Kayaba Indonesia',
+                        'Astra NTN Driveshaft Indonesia',
+                        'Mitsubishi Logistics Indonesia',
+                    ])->map(fn($n) => (object)['name' => $n, 'logo' => null])->all();
+            @endphp
 
-                {{-- First copy --}}
+            {{-- Track: JS will clone children & set --set-width custom property --}}
+            <div class="marquee-track" id="marqueeTrack">
                 @foreach ($clientItems as $client)
-                    <div class="marquee-card group flex-shrink-0 flex items-center justify-center
-                                min-w-[160px] px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50
-                                hover:border-accent/40 hover:bg-white hover:shadow-md
-                                transition-all duration-300">
+                    <div class="marquee-item group">
                         @if (!empty($client->logo))
                             <img src="{{ Storage::url($client->logo) }}"
                                  alt="{{ $client->name }}"
-                                 class="max-h-10 max-w-[120px] object-contain
-                                        opacity-50 grayscale group-hover:opacity-100 group-hover:grayscale-0
-                                        transition-all duration-300">
-                        @else
-                            <span class="text-xs font-bold text-text-light group-hover:text-primary
-                                         transition-colors duration-300 text-center leading-tight select-none">
-                                {{ $client->name }}
-                            </span>
-                        @endif
-                    </div>
-                @endforeach
-
-                {{-- Duplicate copy for seamless loop --}}
-                @foreach ($clientItems as $client)
-                    <div class="marquee-card group flex-shrink-0 flex items-center justify-center
-                                min-w-[160px] px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50
-                                hover:border-accent/40 hover:bg-white hover:shadow-md
-                                transition-all duration-300" aria-hidden="true">
-                        @if (!empty($client->logo))
-                            <img src="{{ Storage::url($client->logo) }}"
-                                 alt=""
                                  class="max-h-10 max-w-[120px] object-contain
                                         opacity-50 grayscale group-hover:opacity-100 group-hover:grayscale-0
                                         transition-all duration-300">
@@ -434,20 +409,79 @@
 
 @push('head')
 <style>
-    /* ── Marquee animation ── */
-    @keyframes marquee {
-        0%   { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
-    .animate-marquee {
-        animation: marquee 30s linear infinite;
+    /* ── Marquee styles ── */
+    .marquee-track {
+        display: flex;
+        width: max-content;
         will-change: transform;
     }
-    /* Pause on hover anywhere in the track */
-    .animate-marquee:hover {
+    .marquee-track.running {
+        animation: marqueeScroll var(--duration, 30s) linear infinite;
+    }
+    .marquee-track:hover {
         animation-play-state: paused;
     }
+    .marquee-item {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 160px;
+        padding: 1rem 1.5rem;
+        margin-right: 1.5rem; /* gap via margin so every item (including last of each set) has it */
+        border-radius: 1rem;
+        border: 1px solid rgb(241 245 249); /* slate-100 */
+        background: rgb(248 250 252);       /* slate-50 */
+        transition: all 0.3s;
+    }
+    .marquee-item:hover {
+        border-color: rgba(var(--color-accent, 220 38 38) / 0.4);
+        background: #fff;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+    @keyframes marqueeScroll {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(var(--set-width)); }
+    }
 </style>
+@endpush
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const track = document.getElementById('marqueeTrack');
+    if (!track) return;
+
+    const GAP = 24; // margin-right on each .marquee-item (1.5rem ≈ 24px)
+    const SPEED = 50; // pixels per second
+
+    // Grab original items (Blade-rendered)
+    const originals = [...track.children];
+    if (originals.length === 0) return;
+
+    // Measure one full set width (each item's offsetWidth + gap)
+    let setWidth = 0;
+    originals.forEach(item => {
+        setWidth += item.offsetWidth + GAP;
+    });
+
+    // Clone enough sets so the total track ≥ viewport × 3 (guarantees no gap)
+    const needed = Math.ceil((window.innerWidth * 3) / setWidth);
+    for (let i = 0; i < needed; i++) {
+        originals.forEach(item => {
+            const clone = item.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true');
+            track.appendChild(clone);
+        });
+    }
+
+    // Set pixel-perfect animation via custom properties
+    const duration = setWidth / SPEED;
+    track.style.setProperty('--set-width', `-${setWidth}px`);
+    track.style.setProperty('--duration', `${duration}s`);
+    track.classList.add('running');
+});
+</script>
 @endpush
 
 {{-- ============================================================

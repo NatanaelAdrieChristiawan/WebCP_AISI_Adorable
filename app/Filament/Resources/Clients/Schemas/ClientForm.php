@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Clients\Schemas;
 
+use App\Services\ImageService;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -17,7 +18,10 @@ class ClientForm
                     ->required(),
                 FileUpload::make('logo')
                     ->image()
-                    ->directory('clients'),
+                    ->directory('clients')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                    ->maxSize(5120)
+                    ->saveUploadedFileUsing(fn ($file) => ImageService::optimizeAndStore($file, 'clients', 400, 400, 85)),
                 TextInput::make('website')
                     ->url(),
                 TextInput::make('industry'),
@@ -32,3 +36,4 @@ class ClientForm
             ]);
     }
 }
+

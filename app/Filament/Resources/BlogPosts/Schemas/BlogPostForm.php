@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\BlogPosts\Schemas;
 
+use App\Services\ImageService;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
@@ -40,6 +41,9 @@ class BlogPostForm
                 FileUpload::make('featured_image')
                     ->image()
                     ->directory('blog')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                    ->maxSize(10240)
+                    ->saveUploadedFileUsing(fn ($file) => ImageService::optimizeAndStore($file, 'blog'))
                     ->columnSpanFull()
                     ->label('Gambar Utama'),
                 Select::make('status')
@@ -68,3 +72,4 @@ class BlogPostForm
             ]);
     }
 }
+

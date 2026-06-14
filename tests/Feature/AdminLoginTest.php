@@ -21,7 +21,7 @@ class AdminLoginTest extends TestCase
     {
         $response = $this->get('/admin/login');
         $response->assertStatus(200);
-        $response->assertSee('Sign in');
+        $response->assertSee('Masuk');
     }
 
     public function test_admin_can_login_with_seeded_credentials(): void

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Galleries\Schemas;
 
+use App\Services\ImageService;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -22,15 +23,12 @@ class GalleryForm
                     ->label('Upload Foto')
                     ->image()
                     ->required()
-                    ->imageResizeMode('cover')
-                    ->imageCropAspectRatio('1:1')
-                    ->imageResizeTargetWidth('800')
-                    ->imageResizeTargetHeight('800')
                     ->directory('galleries')
                     ->disk('public')
                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->maxSize(5120) // 5MB
-                    ->helperText('Ukuran maksimal 5MB. Format: JPG, PNG, WebP.')
+                    ->saveUploadedFileUsing(fn ($file) => ImageService::optimizeAndStore($file, 'galleries', 800, 800))
+                    ->helperText('Ukuran maksimal 5MB. Format: JPG, PNG, WebP. Gambar akan otomatis dioptimasi dan dikonversi ke WebP.')
                     ->columnSpanFull(),
                 Toggle::make('is_active')
                     ->label('Tampilkan di Website')
@@ -43,3 +41,4 @@ class GalleryForm
             ]);
     }
 }
+
