@@ -601,19 +601,12 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
 
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6">
-            <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd"/>
-            </svg>
-            <span class="text-white/80 text-sm font-medium">Konsultasi Gratis</span>
-        </div>
-
         <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight">
             Butuh Solusi Fire Protection<br class="hidden sm:block">
             untuk Perusahaan Anda?
         </h2>
         <p class="text-white/65 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-            Tim ahli kami siap membantu menemukan solusi perlindungan kebakaran yang tepat sesuai kebutuhan industri Anda. Hubungi kami sekarang untuk konsultasi gratis.
+            Tim ahli kami siap membantu menemukan solusi perlindungan kebakaran yang tepat sesuai kebutuhan industri Anda. Hubungi kami sekarang.
         </p>
         <div class="flex justify-center">
             <a href="{{ route('contact.index') }}"
