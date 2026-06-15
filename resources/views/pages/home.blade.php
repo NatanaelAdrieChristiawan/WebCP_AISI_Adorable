@@ -262,17 +262,25 @@
             @foreach ($featuredProducts as $product)
             <div class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col">
 
-                {{-- Product image placeholder --}}
+                {{-- Product image --}}
                 <div class="relative h-48 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
-                    {{-- Placeholder background pattern --}}
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                  d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                  d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/>
-                        </svg>
-                    </div>
+                    @if ($product->image)
+                        <img src="{{ $product->image_url }}"
+                             alt="{{ $product->name }}"
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                             loading="lazy">
+                    @else
+                        {{-- Placeholder background pattern --}}
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-16 h-16 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                      d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                      d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/>
+                            </svg>
+                        </div>
+                    @endif
+
                     {{-- Category badge --}}
                     @if ($product->category)
                     <span class="absolute top-3 left-3 bg-accent text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm">
