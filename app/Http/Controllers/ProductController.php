@@ -17,8 +17,9 @@ class ProductController extends Controller
         $products = Product::with('category')
             ->where('is_active', true)
             ->when($request->category, fn ($q, $cat) => $q->whereHas('category', fn ($q2) => $q2->where('slug', $cat)))
+            ->when($request->search, fn ($q, $search) => $q->where('name', 'like', "%{$search}%"))
             ->orderBy('sort_order')
-            ->paginate(12);
+            ->paginate(9);
 
         return view('pages.products.index', compact('products', 'categories'));
     }

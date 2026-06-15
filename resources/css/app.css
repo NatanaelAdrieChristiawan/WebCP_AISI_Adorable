@@ -29,113 +29,71 @@
     font-family: "Plus Jakarta Sans", sans-serif;
 }
 
-/* Animation Base System */
-[class^="anim-"], [class*=" anim-"] {
+/* ==========================================================
+   ENTRANCE ANIMATION SYSTEM — Transition-based (GPU-optimized)
+   ==========================================================
+   Uses CSS transitions (not keyframes) for buttery-smooth
+   entrance effects. Each .anim-* class sets the "before" state;
+   adding .anim-visible transitions to the "after" state.
+   ========================================================== */
+
+/* Shared transition base — applied to all anim elements */
+.anim-fade-up,
+.anim-fade-down,
+.anim-fade-left,
+.anim-fade-right,
+.anim-scale-in,
+.anim-blur-in {
     opacity: 0;
-    will-change: transform, opacity, filter;
-    animation-duration: 700ms;
-    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-    animation-fill-mode: forwards;
-    animation-delay: var(--anim-delay, 0ms);
+    will-change: transform, opacity;
+    transition-property: opacity, transform, filter;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--anim-delay, 0ms);
 }
 
-.anim-visible {
-    opacity: 1;
-}
+/* Per-type initial transforms */
+.anim-fade-up    { transform: translateY(24px); }
+.anim-fade-down  { transform: translateY(-18px); }
+.anim-fade-left  { transform: translateX(-24px); }
+.anim-fade-right { transform: translateX(24px); }
+.anim-scale-in   { transform: scale(0.92); }
+.anim-blur-in    { transform: scale(0.96); filter: blur(6px); will-change: transform, opacity, filter; }
 
-.anim-fade-up.anim-visible {
-    animation-name: fadeUp;
-}
-.anim-fade-down.anim-visible {
-    animation-name: fadeDown;
-}
-.anim-fade-left.anim-visible {
-    animation-name: fadeLeft;
-}
-.anim-fade-right.anim-visible {
-    animation-name: fadeRight;
-}
-.anim-scale-in.anim-visible {
-    animation-name: scaleIn;
-}
+/* Visible state — shared for all types */
+.anim-fade-up.anim-visible,
+.anim-fade-down.anim-visible,
+.anim-fade-left.anim-visible,
+.anim-fade-right.anim-visible,
+.anim-scale-in.anim-visible,
 .anim-blur-in.anim-visible {
-    animation-name: blurIn;
+    opacity: 1;
+    transform: none;
+    filter: none;
 }
 
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Clean up will-change after transition to free GPU memory */
+.anim-fade-up.anim-done,
+.anim-fade-down.anim-done,
+.anim-fade-left.anim-done,
+.anim-fade-right.anim-done,
+.anim-scale-in.anim-done,
+.anim-blur-in.anim-done {
+    will-change: auto;
 }
 
-@keyframes fadeDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes fadeRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes blurIn {
-    from {
-        opacity: 0;
-        filter: blur(8px);
-        transform: scale(0.96);
-    }
-    to {
-        opacity: 1;
-        filter: blur(0);
-        transform: scale(1);
-    }
-}
-
+/* Respect user motion preferences */
 @media (prefers-reduced-motion: reduce) {
-    [class^="anim-"], [class*=" anim-"] {
+    .anim-fade-up,
+    .anim-fade-down,
+    .anim-fade-left,
+    .anim-fade-right,
+    .anim-scale-in,
+    .anim-blur-in {
         opacity: 1 !important;
         transform: none !important;
         filter: none !important;
-        animation: none !important;
+        transition: none !important;
     }
 }
 
