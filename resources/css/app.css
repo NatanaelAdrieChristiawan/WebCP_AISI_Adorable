@@ -28,3 +28,114 @@
 * {
     font-family: "Plus Jakarta Sans", sans-serif;
 }
+
+/* Animation Base System */
+[class^="anim-"], [class*=" anim-"] {
+    opacity: 0;
+    will-change: transform, opacity, filter;
+    animation-duration: 700ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-fill-mode: forwards;
+    animation-delay: var(--anim-delay, 0ms);
+}
+
+.anim-visible {
+    opacity: 1;
+}
+
+.anim-fade-up.anim-visible {
+    animation-name: fadeUp;
+}
+.anim-fade-down.anim-visible {
+    animation-name: fadeDown;
+}
+.anim-fade-left.anim-visible {
+    animation-name: fadeLeft;
+}
+.anim-fade-right.anim-visible {
+    animation-name: fadeRight;
+}
+.anim-scale-in.anim-visible {
+    animation-name: scaleIn;
+}
+.anim-blur-in.anim-visible {
+    animation-name: blurIn;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes blurIn {
+    from {
+        opacity: 0;
+        filter: blur(8px);
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [class^="anim-"], [class*=" anim-"] {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        animation: none !important;
+    }
+}
+

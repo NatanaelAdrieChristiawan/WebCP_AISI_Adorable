@@ -8,7 +8,7 @@
 {{-- ============================================================
      SECTION A — HERO BANNER
      ============================================================ --}}
-<section class="bg-primary py-16 md:py-20 relative overflow-hidden">
+<section class="bg-primary py-16 md:py-20 relative overflow-hidden" x-data>
     {{-- Decorative triangles --}}
     <div class="absolute -top-12 -right-12 w-72 h-72 opacity-10">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,14 +31,19 @@
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl">
-            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6">
+            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6 anim-fade-up"
+                 x-init="$el.classList.add('anim-visible')">
                 <span class="w-2 h-2 rounded-full bg-accent"></span>
                 <span class="text-white/80 text-sm font-medium">Fire Protection &amp; Fighting Products</span>
             </div>
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4 anim-fade-up"
+                style="--anim-delay: 200ms"
+                x-init="$el.classList.add('anim-visible')">
                 Katalog Produk Kami
             </h1>
-            <p class="text-white/70 text-lg md:text-xl leading-relaxed">
+            <p class="text-white/70 text-lg md:text-xl leading-relaxed anim-fade-up"
+               style="--anim-delay: 400ms"
+               x-init="$el.classList.add('anim-visible')">
                 Solusi <strong class="text-white font-semibold">Fire Protection &amp; Fighting</strong>
                 terlengkap untuk kebutuhan industri Anda.
             </p>
@@ -52,7 +57,9 @@
 <section class="py-16 md:py-24 bg-surface">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <form method="GET" action="{{ route('products.index') }}" class="mb-10">
+        <form method="GET" action="{{ route('products.index') }}" class="mb-10 anim-fade-up"
+              x-data
+              x-intersect.once="$el.classList.add('anim-visible')">
 
             {{-- Hidden category field updated synchronously via JS --}}
             <input type="hidden" id="category-input" name="category" value="{{ request('category') }}">
@@ -159,7 +166,10 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
                 @foreach ($products as $product)
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col anim-fade-up"
+                         style="--anim-delay: {{ $loop->index * 100 }}ms"
+                         x-data
+                         x-intersect.once="$el.classList.add('anim-visible')">
 
                         {{-- Image Area --}}
                         <div class="relative h-[200px] overflow-hidden bg-slate-100 shrink-0">
@@ -234,7 +244,9 @@
 {{-- ============================================================
      SECTION C — CTA KONSULTASI
      ============================================================ --}}
-<section class="py-16 bg-primary relative overflow-hidden">
+<section class="py-16 bg-primary relative overflow-hidden anim-fade-up"
+         x-data
+         x-intersect.once="$el.classList.add('anim-visible')">
     <div class="absolute inset-0 opacity-5">
         <div class="absolute top-0 right-0 w-96 h-96 -translate-y-1/2 translate-x-1/4">
             <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">

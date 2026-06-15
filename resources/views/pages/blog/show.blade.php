@@ -8,14 +8,15 @@
 {{-- ============================================================
      SECTION A — BREADCRUMB HERO
      ============================================================ --}}
-<section class="bg-primary py-10 md:py-14 relative overflow-hidden">
+<section class="bg-primary py-10 md:py-14 relative overflow-hidden" x-data>
     <div class="absolute -top-12 -right-12 w-64 h-64 opacity-10">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
             <polygon points="100,10 190,190 10,190" fill="#C41230"/>
         </svg>
     </div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 anim-fade-down"
+         x-init="$el.classList.add('anim-visible')">
         <div class="mb-4">
             <x-breadcrumb :items="[
                 ['label' => 'Berita', 'url' => '/blog'],
@@ -64,7 +65,9 @@
 
         {{-- Featured image --}}
         @if ($post->featured_image)
-            <div class="mb-10 rounded-2xl overflow-hidden shadow-md border border-slate-100 aspect-[21/9]">
+            <div class="mb-10 rounded-2xl overflow-hidden shadow-md border border-slate-100 aspect-[21/9] anim-fade-up"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <img src="{{ $post->image_url }}"
                      alt="{{ $post->title }}"
                      class="w-full h-full object-cover">
@@ -72,7 +75,10 @@
         @endif
 
         {{-- Article body --}}
-        <div class="prose prose-slate max-w-none prose-headings:text-primary prose-a:text-accent prose-headings:font-bold prose-img:rounded-xl">
+        <div class="prose prose-slate max-w-none prose-headings:text-primary prose-a:text-accent prose-headings:font-bold prose-img:rounded-xl anim-fade-up"
+             style="--anim-delay: 200ms"
+             x-data
+             x-intersect.once="$el.classList.add('anim-visible')">
             {!! $post->content !!}
         </div>
 
@@ -115,7 +121,10 @@
 
         <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             @foreach ($related as $rel)
-                <article class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                <article class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col anim-fade-up"
+                         style="--anim-delay: {{ $loop->index * 100 }}ms"
+                         x-data
+                         x-intersect.once="$el.classList.add('anim-visible')">
                     <div class="relative h-48 bg-slate-100 overflow-hidden flex items-center justify-center shrink-0">
                         @if ($rel->featured_image)
                             <img src="{{ $rel->image_url }}"

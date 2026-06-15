@@ -8,7 +8,9 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
 
             {{-- Column 1: Brand & About --}}
-            <div class="space-y-4">
+            <div class="space-y-4 anim-fade-up"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <div class="flex items-center gap-2">
                     <img src="{{ asset('image/logo/logo.png') }}" alt="Logo PT Aisi Aiken Indonesia" class="h-8 w-auto object-contain">
                     <span class="text-white font-extrabold text-xl tracking-widest">AISI</span>
@@ -27,7 +29,10 @@
             </div>
 
             {{-- Column 2: Quick Links --}}
-            <div class="space-y-4">
+            <div class="space-y-4 anim-fade-up"
+                 style="--anim-delay: 150ms"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <h4 class="font-bold text-sm uppercase tracking-widest text-white/80 after:block after:w-8 after:h-0.5 after:bg-accent after:mt-2">
                     Quick Links
                 </h4>
@@ -52,7 +57,10 @@
             </div>
 
             {{-- Column 3: Contact Info --}}
-            <div class="space-y-4">
+            <div class="space-y-4 anim-fade-up"
+                 style="--anim-delay: 300ms"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <h4 class="font-bold text-sm uppercase tracking-widest text-white/80 after:block after:w-8 after:h-0.5 after:bg-accent after:mt-2">
                     Kontak Kami
                 </h4>
@@ -113,7 +121,9 @@
     </div>
 
     {{-- Bottom bar --}}
-    <div class="border-t border-white/10 bg-primary-dark">
+    <div class="border-t border-white/10 bg-primary-dark anim-fade-up"
+         x-data
+         x-intersect.once="$el.classList.add('anim-visible')">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
             <p class="text-white/40 text-xs">
                 &copy; {{ date('Y') }} PT Aisi Aiken Indonesia. All Rights Reserved.

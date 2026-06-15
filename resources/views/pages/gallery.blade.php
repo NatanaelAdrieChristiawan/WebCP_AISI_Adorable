@@ -8,7 +8,7 @@
 {{-- ============================================================
      SECTION A — HERO BANNER
      ============================================================ --}}
-<section class="bg-primary py-16 md:py-24 relative overflow-hidden">
+<section class="bg-primary py-16 md:py-24 relative overflow-hidden" x-data>
     {{-- Decorative triangles --}}
     <div class="absolute -top-12 -right-12 w-72 h-72 opacity-10">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,14 +23,19 @@
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl">
-            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6">
+            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6 anim-fade-up"
+                 x-init="$el.classList.add('anim-visible')">
                 <span class="w-2 h-2 rounded-full bg-accent"></span>
                 <span class="text-white/80 text-sm font-medium">Foto Fasilitas & Kegiatan</span>
             </div>
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4 anim-fade-up"
+                style="--anim-delay: 200ms"
+                x-init="$el.classList.add('anim-visible')">
                 Galeri PT Aisi Aiken Indonesia
             </h1>
-            <p class="text-white/70 text-lg md:text-xl leading-relaxed">
+            <p class="text-white/70 text-lg md:text-xl leading-relaxed anim-fade-up"
+               style="--anim-delay: 400ms"
+               x-init="$el.classList.add('anim-visible')">
                 Intip langsung fasilitas produksi, gudang, dan berbagai kegiatan operasional kami di Kawasan Industri Greenland, Cikarang.
             </p>
         </div>
@@ -48,7 +53,9 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             @foreach ($galleries as $item)
             <div
-                class="group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                class="group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer anim-scale-in"
+                style="--anim-delay: {{ $loop->index * 80 }}ms"
+                x-intersect.once="$el.classList.add('anim-visible')"
                 @if ($item->image && Storage::disk('public')->exists($item->image))
                     @click="activeImage = '{{ Storage::url($item->image) }}'; activeTitle = '{{ str_replace('\'', '\\\'', $item->title) }}'; lightboxOpen = true"
                 @endif
@@ -161,7 +168,9 @@
 </section>
 
 {{-- CTA Banner --}}
-<section class="py-14 bg-primary relative overflow-hidden">
+<section class="py-14 bg-primary relative overflow-hidden anim-fade-up"
+         x-data
+         x-intersect.once="$el.classList.add('anim-visible')">
     <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
             <polygon points="100,10 190,190 10,190" fill="#C41230"/>

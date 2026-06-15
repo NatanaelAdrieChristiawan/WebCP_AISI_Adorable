@@ -8,7 +8,7 @@
 {{-- ============================================================
      SECTION A — HERO BANNER
      ============================================================ --}}
-<section class="bg-primary py-16 md:py-24 relative overflow-hidden">
+<section class="bg-primary py-16 md:py-24 relative overflow-hidden" x-data>
     {{-- Decorative triangles --}}
     <div class="absolute -top-12 -right-12 w-72 h-72 opacity-10">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,14 +23,19 @@
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl">
-            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6">
+            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6 anim-fade-up"
+                 x-init="$el.classList.add('anim-visible')">
                 <span class="w-2 h-2 rounded-full bg-accent"></span>
                 <span class="text-white/80 text-sm font-medium">Hubungi Kami</span>
             </div>
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4 anim-fade-up"
+                style="--anim-delay: 200ms"
+                x-init="$el.classList.add('anim-visible')">
                 Hubungi PT Aisi Aiken Indonesia
             </h1>
-            <p class="text-white/70 text-lg md:text-xl leading-relaxed">
+            <p class="text-white/70 text-lg md:text-xl leading-relaxed anim-fade-up"
+               style="--anim-delay: 400ms"
+               x-init="$el.classList.add('anim-visible')">
                 Kami siap membantu memberikan solusi proteksi kebakaran terbaik bagi perusahaan Anda. Hubungi kami melalui form atau kontak langsung di bawah ini.
             </p>
         </div>
@@ -48,7 +53,9 @@
             {{-- ════════════════════════════
                  KOLOM KIRI — FORMULIR
                  ════════════════════════════ --}}
-            <div class="lg:col-span-7 bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-slate-100">
+            <div class="lg:col-span-7 bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-slate-100 anim-fade-right"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <h2 class="text-2xl font-bold text-primary mb-6">Kirim Pesan</h2>
                 
                 {{-- Success alert --}}
@@ -144,7 +151,9 @@
             {{-- ════════════════════════════
                  KOLOM KANAN — INFO KONTAK
                  ════════════════════════════ --}}
-            <div class="lg:col-span-5 space-y-6">
+            <div class="lg:col-span-5 space-y-6 anim-fade-left"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
 
                 {{-- Kantor & Produksi --}}
                 <div class="bg-primary rounded-2xl p-6 md:p-8 text-white relative overflow-hidden shadow-md">
@@ -252,7 +261,10 @@
         {{-- ════════════════════════════
              PETA GOOGLE MAPS EMBED
              ════════════════════════════ --}}
-        <div class="mt-16 rounded-2xl overflow-hidden shadow-sm border border-slate-100 relative" style="height:450px;">
+        <div class="mt-16 rounded-2xl overflow-hidden shadow-sm border border-slate-100 relative anim-fade-up"
+             style="height:450px;"
+             x-data
+             x-intersect.once="$el.classList.add('anim-visible')">
             {{-- Open in Maps button overlay --}}
             <a href="https://maps.app.goo.gl/KkkfY8A5Qv8fhUBf6"
                target="_blank"

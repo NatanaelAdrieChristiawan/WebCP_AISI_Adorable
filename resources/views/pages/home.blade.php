@@ -8,7 +8,7 @@
 {{-- ============================================================
      SECTION A — HERO
      ============================================================ --}}
-<section class="relative min-h-screen flex items-center overflow-hidden bg-primary">
+<section class="relative min-h-screen flex items-center overflow-hidden bg-primary" x-data>
 
     {{-- Background gradient overlay --}}
     <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary-dark opacity-95"></div>
@@ -47,27 +47,35 @@
         <div class="max-w-3xl">
 
             {{-- Badge --}}
-            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 rounded-full px-4 py-1.5 mb-8">
+            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 rounded-full px-4 py-1.5 mb-8 anim-fade-down"
+                 style="--anim-delay: 200ms"
+                 x-init="$el.classList.add('anim-visible')">
                 <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
                 <span class="text-white/90 text-sm font-medium tracking-wide">ISO 9001:2015 &amp; ISO 14001:2015 Certified</span>
             </div>
 
             {{-- H1 Headline --}}
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 anim-blur-in"
+                style="--anim-delay: 400ms"
+                x-init="$el.classList.add('anim-visible')">
                 Solusi Perlindungan Kebakaran
                 <span class="text-accent">Terbaik</span>
                 untuk Industri Anda
             </h1>
 
             {{-- Subheadline --}}
-            <p class="text-white/75 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">
+            <p class="text-white/75 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl anim-fade-up"
+               style="--anim-delay: 600ms"
+               x-init="$el.classList.add('anim-visible')">
                 Produsen <strong class="text-white font-semibold">Fire Protection &amp; Fire Fighting Products</strong>
                 bersertifikat ISO 9001:2015 &amp; ISO 14001:2015 —
                 100% Perusahaan Indonesia sejak 2011.
             </p>
 
             {{-- CTA Buttons --}}
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-4 anim-fade-up"
+                 style="--anim-delay: 800ms"
+                 x-init="$el.classList.add('anim-visible')">
                 <a href="{{ route('products.index') }}"
                    class="inline-flex items-center gap-2 px-7 py-3.5 bg-accent hover:bg-accent-hover text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-accent/30 hover:-translate-y-0.5">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +110,9 @@
             </div>
 
             {{-- Trust indicators --}}
-            <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 text-white/55 text-sm">
+            <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 text-white/55 text-sm anim-fade-up"
+                 style="--anim-delay: 1000ms"
+                 x-init="$el.classList.add('anim-visible')">
                 <span class="flex items-center gap-2">
                     <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
@@ -126,7 +136,9 @@
     </div>
 
     {{-- Scroll indicator --}}
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-white/40">
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-white/40 anim-fade-up"
+         style="--anim-delay: 1200ms"
+         x-init="$el.classList.add('anim-visible')">
         <span class="text-xs tracking-widest uppercase font-medium">Scroll</span>
         <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -151,7 +163,10 @@
             @endphp
 
             @foreach ($stats as $stat)
-            <div class="bg-white rounded-2xl p-6 md:p-8 text-center shadow-sm border border-slate-100 group hover:border-accent/30 hover:shadow-md transition-all duration-200">
+            <div class="bg-white rounded-2xl p-6 md:p-8 text-center shadow-sm border border-slate-100 group hover:border-accent/30 hover:shadow-md transition-all duration-200 anim-scale-in"
+                 style="--anim-delay: {{ $loop->index * 100 }}ms"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-4 group-hover:bg-accent/10 transition-colors duration-200">
                     <svg class="w-6 h-6 text-primary group-hover:text-accent transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $stat['icon'] }}"/>
@@ -215,7 +230,10 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             @foreach ($advantages as $item)
-            <div class="group bg-white border border-slate-100 rounded-2xl p-7 hover:border-accent/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <div class="group bg-white border border-slate-100 rounded-2xl p-7 hover:border-accent/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 anim-fade-up"
+                 style="--anim-delay: {{ $loop->index * 150 }}ms"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <div class="w-14 h-14 rounded-xl bg-surface flex items-center justify-center mb-5 group-hover:bg-accent group-hover:scale-110 transition-all duration-300">
                     <svg class="w-7 h-7 text-primary group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         {!! $item['icon'] !!}
@@ -248,19 +266,26 @@
                 subtitle="Solusi fire protection terlengkap dengan teknologi terkini dan standar kualitas internasional."
                 align="left"
             />
-            <a href="{{ route('products.index') }}"
-               class="shrink-0 inline-flex items-center gap-2 text-accent font-semibold text-sm hover:gap-3 transition-all duration-200">
-                Lihat Semua Produk
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-            </a>
+            <div class="shrink-0 anim-fade-up"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
+                <a href="{{ route('products.index') }}"
+                   class="shrink-0 inline-flex items-center gap-2 text-accent font-semibold text-sm hover:gap-3 transition-all duration-200">
+                    Lihat Semua Produk
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
         </div>
 
         @if ($featuredProducts->isNotEmpty())
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach ($featuredProducts as $product)
-            <div class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col">
+            <div class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col anim-fade-up"
+                 style="--anim-delay: {{ $loop->index * 100 }}ms"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
 
                 {{-- Product image --}}
                 <div class="relative h-48 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
@@ -316,7 +341,10 @@
         {{-- Placeholder cards when no data --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach (['APAR CO₂', 'Fire Hydrant System', 'Fire Alarm Panel', 'Suppression System'] as $placeholder)
-            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col">
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col anim-fade-up"
+                 style="--anim-delay: {{ $loop->index * 100 }}ms"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <div class="h-48 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
                     <svg class="w-16 h-16 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -334,7 +362,9 @@
         </div>
         @endif
 
-        <div class="text-center mt-10">
+        <div class="text-center mt-10 anim-fade-up"
+             x-data
+             x-intersect.once="$el.classList.add('anim-visible')">
             <a href="{{ route('products.index') }}"
                class="inline-flex items-center gap-2 px-8 py-3.5 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-all duration-200 hover:-translate-y-0.5 shadow-md hover:shadow-lg">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -409,7 +439,9 @@
     </div>
 
     {{-- Tagline --}}
-    <p class="text-center text-text-light text-sm mt-10 px-4">
+    <p class="text-center text-text-light text-sm mt-10 px-4 anim-fade-up"
+       x-data
+       x-intersect.once="$el.classList.add('anim-visible')">
         Dan ratusan perusahaan lainnya di seluruh Indonesia yang telah mempercayakan keamanan mereka kepada AISI.
     </p>
 
@@ -504,19 +536,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 subtitle="Ikuti perkembangan terbaru dari AISI — dari peluncuran produk hingga wawasan industri fire protection."
                 align="left"
             />
-            <a href="{{ route('blog.index') }}"
-               class="shrink-0 inline-flex items-center gap-2 text-accent font-semibold text-sm hover:gap-3 transition-all duration-200">
-                Lihat Semua Berita
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-            </a>
+            <div class="shrink-0 anim-fade-up"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
+                <a href="{{ route('blog.index') }}"
+                   class="shrink-0 inline-flex items-center gap-2 text-accent font-semibold text-sm hover:gap-3 transition-all duration-200">
+                    Lihat Semua Berita
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
         </div>
 
         @if ($latestPosts->isNotEmpty())
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             @foreach ($latestPosts as $post)
-            <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col">
+            <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col anim-fade-up"
+                     style="--anim-delay: {{ $loop->index * 150 }}ms"
+                     x-data
+                     x-intersect.once="$el.classList.add('anim-visible')">
 
                 {{-- Post image --}}
                 <div class="relative h-52 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden flex items-center justify-center">
@@ -563,7 +602,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 ['title' => 'Peluncuran Produk APAR Generasi Terbaru', 'date' => '28 Mei 2025'],
                 ['title' => 'Pameran Fire & Safety Indonesia 2025', 'date' => '15 Apr 2025'],
             ] as $placeholder)
-            <article class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col">
+            <article class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col anim-fade-up"
+                     style="--anim-delay: {{ $loop->index * 150 }}ms"
+                     x-data
+                     x-intersect.once="$el.classList.add('anim-visible')">
                 <div class="h-52 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
                     <svg class="w-14 h-14 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -601,14 +643,22 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
 
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight anim-fade-up"
+            x-data
+            x-intersect.once="$el.classList.add('anim-visible')">
             Butuh Solusi Fire Protection<br class="hidden sm:block">
             untuk Perusahaan Anda?
         </h2>
-        <p class="text-white/65 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+        <p class="text-white/65 text-lg mb-8 max-w-2xl mx-auto leading-relaxed anim-fade-up"
+           style="--anim-delay: 200ms"
+           x-data
+           x-intersect.once="$el.classList.add('anim-visible')">
             Tim ahli kami siap membantu menemukan solusi perlindungan kebakaran yang tepat sesuai kebutuhan industri Anda. Hubungi kami sekarang.
         </p>
-        <div class="flex justify-center">
+        <div class="flex justify-center anim-fade-up"
+             style="--anim-delay: 400ms"
+             x-data
+             x-intersect.once="$el.classList.add('anim-visible')">
             <a href="{{ route('contact.index') }}"
                class="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-accent-hover text-white font-bold rounded-lg transition-all duration-200 hover:-translate-y-0.5 shadow-lg hover:shadow-accent/30">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

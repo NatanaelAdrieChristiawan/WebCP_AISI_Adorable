@@ -22,14 +22,15 @@
 {{-- ============================================================
      SECTION A — BREADCRUMB HERO
      ============================================================ --}}
-<section class="bg-primary py-10 md:py-14 relative overflow-hidden">
+<section class="bg-primary py-10 md:py-14 relative overflow-hidden" x-data>
     <div class="absolute -top-12 -right-12 w-64 h-64 opacity-10">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
             <polygon points="100,10 190,190 10,190" fill="#C41230"/>
         </svg>
     </div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 anim-fade-down"
+         x-init="$el.classList.add('anim-visible')">
         <div class="mb-4">
             <x-breadcrumb :items="[
                 ['label' => 'Produk', 'url' => '/products'],
@@ -61,7 +62,8 @@
                  KOLOM KIRI — GALERI PRODUK
                  ════════════════════════════ --}}
             <div x-data='{ active: {{ json_encode($mainImageUrl) }}, images: {{ json_encode($galleryImages) }} }'
-                 class="lg:sticky lg:top-24">
+                 x-intersect.once="$el.classList.add('anim-visible')"
+                 class="lg:sticky lg:top-24 anim-fade-right">
 
                 {{-- Main Image Display --}}
                 <div class="w-full aspect-[4/3] bg-slate-100 rounded-2xl overflow-hidden shadow-md border border-slate-100">
@@ -106,7 +108,9 @@
             {{-- ════════════════════════════
                  KOLOM KANAN — INFO PRODUK
                  ════════════════════════════ --}}
-            <div class="space-y-6">
+            <div class="space-y-6 anim-fade-left"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
 
                 {{-- Category pill --}}
                 @if ($product->category)
@@ -233,7 +237,10 @@
 
         <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($related as $rel)
-                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col anim-fade-up"
+                     style="--anim-delay: {{ $loop->index * 100 }}ms"
+                     x-data
+                     x-intersect.once="$el.classList.add('anim-visible')">
                     <div class="relative h-[180px] overflow-hidden bg-slate-100 shrink-0">
                         @if ($rel->image)
                             <img src="{{ $rel->image_url }}"
@@ -272,7 +279,9 @@
             @endforeach
         </div>
 
-        <div class="mt-10 text-center">
+        <div class="mt-10 text-center anim-fade-up"
+             x-data
+             x-intersect.once="$el.classList.add('anim-visible')">
             <a href="{{ route('products.index') }}"
                class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-all duration-200">
                 Lihat Semua Produk

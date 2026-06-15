@@ -8,7 +8,7 @@
 {{-- ============================================================
      SECTION A — HERO BANNER
      ============================================================ --}}
-<section class="bg-primary py-16 md:py-24 relative overflow-hidden">
+<section class="bg-primary py-16 md:py-24 relative overflow-hidden" x-data>
     {{-- Decorative triangles --}}
     <div class="absolute -top-12 -right-12 w-72 h-72 opacity-10">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,14 +23,19 @@
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl">
-            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6">
+            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6 anim-fade-up"
+                 x-init="$el.classList.add('anim-visible')">
                 <span class="w-2 h-2 rounded-full bg-accent"></span>
                 <span class="text-white/80 text-sm font-medium">Berdiri sejak 2011</span>
             </div>
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4 anim-fade-up"
+                style="--anim-delay: 200ms"
+                x-init="$el.classList.add('anim-visible')">
                 Tentang PT Aisi Aiken Indonesia
             </h1>
-            <p class="text-white/70 text-lg md:text-xl leading-relaxed">
+            <p class="text-white/70 text-lg md:text-xl leading-relaxed anim-fade-up"
+               style="--anim-delay: 400ms"
+               x-init="$el.classList.add('anim-visible')">
                 Perusahaan Manufaktur Fire Protection <strong class="text-white font-semibold">100% Indonesia</strong>
                 — Bersertifikat ISO 9001:2015 &amp; ISO 14001:2015
             </p>
@@ -47,7 +52,9 @@
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-start">
 
             {{-- Photo placeholder --}}
-            <div class="lg:col-span-2 flex flex-col items-center lg:items-start gap-4">
+            <div class="lg:col-span-2 flex flex-col items-center lg:items-start gap-4 anim-fade-right"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <div class="w-full max-w-xs mx-auto lg:mx-0 aspect-[3/4] bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex flex-col items-center justify-center gap-4 shadow-sm border border-slate-100">
                     <svg class="w-20 h-20 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -61,7 +68,9 @@
             </div>
 
             {{-- Speech content --}}
-            <div class="lg:col-span-3">
+            <div class="lg:col-span-3 anim-fade-left"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <div class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-6">
                     <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -123,7 +132,9 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
 
             {{-- VISI --}}
-            <div class="bg-primary rounded-2xl p-8 md:p-10 text-white relative overflow-hidden">
+            <div class="bg-primary rounded-2xl p-8 md:p-10 text-white relative overflow-hidden anim-fade-right"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <div class="absolute top-0 right-0 w-40 h-40 opacity-5">
                     <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <polygon points="100,10 190,190 10,190" fill="white"/>
@@ -152,7 +163,9 @@
             </div>
 
             {{-- MISI --}}
-            <div class="bg-accent rounded-2xl p-8 md:p-10 text-white relative overflow-hidden">
+            <div class="bg-accent rounded-2xl p-8 md:p-10 text-white relative overflow-hidden anim-fade-left"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <div class="absolute top-0 right-0 w-40 h-40 opacity-10">
                     <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <polygon points="100,10 190,190 10,190" fill="white"/>
@@ -198,7 +211,9 @@
                     align="left"
                 />
 
-                <div class="mt-8 space-y-0 rounded-2xl overflow-hidden border border-slate-100 shadow-sm">
+                <div class="mt-8 space-y-0 rounded-2xl overflow-hidden border border-slate-100 shadow-sm anim-fade-up"
+                     x-data
+                     x-intersect.once="$el.classList.add('anim-visible')">
                     @php
                     $profileData = [
                         ['label' => 'Nama Perusahaan',   'value' => 'PT Aisi Aiken Indonesia'],
@@ -227,7 +242,9 @@
 
             {{-- Address & Location card --}}
             <div class="space-y-6">
-                <div class="bg-primary rounded-2xl p-7 text-white">
+                <div class="bg-primary rounded-2xl p-7 text-white anim-fade-up"
+                     x-data
+                     x-intersect.once="$el.classList.add('anim-visible')">
                     <div class="flex items-center gap-3 mb-5">
                         <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -248,7 +265,9 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-surface rounded-xl p-5 border border-slate-100">
+                    <div class="bg-surface rounded-xl p-5 border border-slate-100 anim-fade-up"
+                         x-data
+                         x-intersect.once="$el.classList.add('anim-visible')">
                         <svg class="w-7 h-7 text-accent mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
@@ -256,7 +275,10 @@
                         <p class="text-xs text-text-light mb-0.5">Telepon</p>
                         <p class="text-sm font-semibold text-text-dark">(62-21) 2909 2832/33</p>
                     </div>
-                    <div class="bg-surface rounded-xl p-5 border border-slate-100">
+                    <div class="bg-surface rounded-xl p-5 border border-slate-100 anim-fade-up"
+                         style="--anim-delay: 100ms"
+                         x-data
+                         x-intersect.once="$el.classList.add('anim-visible')">
                         <svg class="w-7 h-7 text-accent mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -267,7 +289,10 @@
                 </div>
 
                 {{-- Map placeholder --}}
-                <div class="rounded-2xl overflow-hidden border border-slate-100 shadow-sm h-52 bg-gradient-to-br from-slate-100 to-slate-200 flex flex-col items-center justify-center gap-2">
+                <div class="rounded-2xl overflow-hidden border border-slate-100 shadow-sm h-52 bg-gradient-to-br from-slate-100 to-slate-200 flex flex-col items-center justify-center gap-2 anim-fade-up"
+                     style="--anim-delay: 200ms"
+                     x-data
+                     x-intersect.once="$el.classList.add('anim-visible')">
                     <svg class="w-10 h-10 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                               d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
@@ -305,11 +330,11 @@
                 @foreach ($milestones as $index => $milestone)
                 <div
                     x-data="{ shown: false }"
-                    x-intersect="shown = true"
+                    x-intersect.once="shown = true"
                     class="relative flex items-start gap-6 md:gap-0
                            {{ $index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse' }}"
                     :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
-                    style="transition: opacity 0.5s ease, transform 0.5s ease;"
+                    style="transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: {{ $index * 150 }}ms;"
                 >
                     {{-- Content card --}}
                     <div class="ml-12 md:ml-0 md:w-5/12 {{ $index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12' }}">
@@ -352,11 +377,11 @@
                 @foreach ($staticMilestones as $index => $m)
                 <div
                     x-data="{ shown: false }"
-                    x-intersect="shown = true"
+                    x-intersect.once="shown = true"
                     class="relative flex items-start gap-6 md:gap-0
                            {{ $index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse' }}"
                     :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
-                    style="transition: opacity 0.5s ease, transform 0.5s ease; transition-delay: {{ $index * 100 }}ms"
+                    style="transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: {{ $index * 150 }}ms"
                 >
                     <div class="ml-12 md:ml-0 md:w-5/12 {{ $index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12' }}">
                         <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:border-accent/30 hover:shadow-md transition-all duration-200">
@@ -484,7 +509,10 @@
             <div
                 class="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm
                        hover:border-accent/40 hover:shadow-lg transition-all duration-300
-                       {{ $hasFile ? 'cursor-pointer select-none' : '' }}"
+                       {{ $hasFile ? 'cursor-pointer select-none' : '' }} anim-scale-in"
+                style="--anim-delay: {{ $loop->index * 100 }}ms"
+                x-data
+                x-intersect.once="$el.classList.add('anim-visible')"
                 @if($hasFile)
                 onclick="openCertModal(
                     '{{ e($cert->certificate_name) }}',
@@ -579,7 +607,10 @@
         @endphp
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             @foreach ($staticCerts as $cert)
-            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:border-accent/40 hover:shadow-lg transition-all duration-300 group">
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:border-accent/40 hover:shadow-lg transition-all duration-300 group anim-scale-in"
+                 style="--anim-delay: {{ $loop->index * 100 }}ms"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <div class="flex items-start gap-5">
                     <div class="shrink-0 w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
                         <svg class="w-7 h-7 text-primary group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -728,12 +759,15 @@
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="text-center mb-12">
+        <div class="text-center mb-12 anim-fade-up"
+             x-data="{ visible: false }"
+             x-intersect.once="visible = true; $el.classList.add('anim-visible')">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
                 Keunggulan Kompetensi Kami
             </h2>
             <div class="flex justify-center mb-4">
-                <span class="block w-16 h-1 bg-accent rounded-full"></span>
+                <span class="block h-1 bg-accent rounded-full transition-all duration-1000 ease-out"
+                      :class="visible ? 'w-16' : 'w-0'"></span>
             </div>
             <p class="text-white/65 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
                 Lima pilar keunggulan yang menjadikan AISI pilihan utama industri fire protection Indonesia.
@@ -772,7 +806,10 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
             @foreach ($competencies as $index => $item)
-            <div class="group bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-accent/40 transition-all duration-300 text-center">
+            <div class="group bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-accent/40 transition-all duration-300 text-center anim-fade-up"
+                 style="--anim-delay: {{ $index * 150 }}ms"
+                 x-data
+                 x-intersect.once="$el.classList.add('anim-visible')">
                 <div class="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-accent group-hover:scale-110 transition-all duration-300">
                     <svg class="w-7 h-7 text-accent group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         {!! $item['icon'] !!}
@@ -788,7 +825,9 @@
 </section>
 
 {{-- CTA Banner --}}
-<section class="py-14 bg-accent">
+<section class="py-14 bg-accent anim-fade-up"
+         x-data
+         x-intersect.once="$el.classList.add('anim-visible')">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4">
             Tertarik Bekerja Sama dengan AISI?

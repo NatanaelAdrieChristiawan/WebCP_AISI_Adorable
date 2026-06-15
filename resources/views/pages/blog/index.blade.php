@@ -8,7 +8,7 @@
 {{-- ============================================================
      SECTION A — HERO BANNER
      ============================================================ --}}
-<section class="bg-primary py-16 md:py-20 relative overflow-hidden">
+<section class="bg-primary py-16 md:py-20 relative overflow-hidden" x-data>
     {{-- Decorative triangles --}}
     <div class="absolute -top-12 -right-12 w-72 h-72 opacity-10">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,19 +23,26 @@
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {{-- Breadcrumb --}}
-        <div class="mb-8">
+        <div class="mb-8 anim-fade-up"
+             x-init="$el.classList.add('anim-visible')">
             <x-breadcrumb :items="[['label' => 'Berita & Kegiatan']]" />
         </div>
 
         <div class="max-w-3xl">
-            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6">
+            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 rounded-full px-4 py-1.5 mb-6 anim-fade-up"
+                 style="--anim-delay: 200ms"
+                 x-init="$el.classList.add('anim-visible')">
                 <span class="w-2 h-2 rounded-full bg-accent"></span>
                 <span class="text-white/80 text-sm font-medium">AISI Insights</span>
             </div>
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4 anim-fade-up"
+                style="--anim-delay: 400ms"
+                x-init="$el.classList.add('anim-visible')">
                 Berita &amp; Aktivitas Terbaru
             </h1>
-            <p class="text-white/70 text-lg md:text-xl leading-relaxed">
+            <p class="text-white/70 text-lg md:text-xl leading-relaxed anim-fade-up"
+               style="--anim-delay: 600ms"
+               x-init="$el.classList.add('anim-visible')">
                 Informasi terbaru mengenai rilis produk, wawasan industri perlindungan kebakaran, sertifikasi, dan kegiatan operasional perusahaan.
             </p>
         </div>
@@ -66,7 +73,10 @@
             {{-- Grid of blog cards --}}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 @foreach ($posts as $post)
-                    <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                    <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col anim-fade-up"
+                             style="--anim-delay: {{ $loop->index * 100 }}ms"
+                             x-data
+                             x-intersect.once="$el.classList.add('anim-visible')">
                         
                         {{-- Post image --}}
                         <div class="relative h-56 bg-slate-100 overflow-hidden flex items-center justify-center shrink-0">
