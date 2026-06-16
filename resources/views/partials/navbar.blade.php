@@ -21,7 +21,7 @@
                     $navLinks = [
                         ['label' => 'Home',        'url' => '/'],
                         ['label' => 'Produk',      'url' => '/products'],
-                        ['label' => 'Tentang Kami','url' => '/company'],
+                        ['label' => 'Tentang','url' => '/company'],
                         ['label' => 'Blog',        'url' => '/blog'],
                         ['label' => 'Galeri',      'url' => '/gallery'],
                         ['label' => 'Kontak',      'url' => '/contact'],
