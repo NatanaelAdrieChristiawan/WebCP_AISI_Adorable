@@ -26,6 +26,7 @@
                         ['label' => 'Galeri',      'url' => '/gallery'],
                         ['label' => 'Kontak',      'url' => '/contact'],
                     ];
+                    $companyProfileUrl = \App\Models\CompanySetting::getFileUrl('company_profile_file');
                 @endphp
 
                 @foreach ($navLinks as $link)
@@ -49,11 +50,26 @@
 
             {{-- Desktop CTA --}}
             <div class="hidden md:flex items-center gap-3">
-                <a href="{{ url('/contact') }}"
-                   class="px-4 py-2 text-sm font-semibold rounded border-2 border-accent text-white
-                          hover:bg-accent hover:border-accent transition-all duration-150">
-                    Hubungi Kami
-                </a>
+                @if($companyProfileUrl)
+                    <a href="{{ $companyProfileUrl }}"
+                       download
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="px-4 py-2 text-sm font-semibold rounded border-2 border-accent text-white
+                              hover:bg-accent hover:border-accent transition-all duration-150 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Download Company Profile
+                    </a>
+                @else
+                    <a href="{{ url('/contact') }}"
+                       class="px-4 py-2 text-sm font-semibold rounded border-2 border-accent text-white
+                              hover:bg-accent hover:border-accent transition-all duration-150">
+                        Hubungi Kami
+                    </a>
+                @endif
             </div>
 
             {{-- Mobile Hamburger --}}
@@ -107,12 +123,28 @@
             @endforeach
 
             <div class="pt-2 border-t border-white/10">
-                <a href="{{ url('/contact') }}"
-                   @click="mobileOpen = false"
-                   class="block w-full text-center px-4 py-2.5 text-sm font-semibold rounded
-                          bg-accent text-white hover:bg-accent-hover transition-colors duration-150">
-                    Hubungi Kami
-                </a>
+                @if($companyProfileUrl)
+                    <a href="{{ $companyProfileUrl }}"
+                       download
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       @click="mobileOpen = false"
+                       class="flex items-center justify-center gap-2 w-full text-center px-4 py-2.5 text-sm font-semibold rounded
+                              bg-accent text-white hover:bg-accent-hover transition-colors duration-150">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Download Company Profile
+                    </a>
+                @else
+                    <a href="{{ url('/contact') }}"
+                       @click="mobileOpen = false"
+                       class="block w-full text-center px-4 py-2.5 text-sm font-semibold rounded
+                              bg-accent text-white hover:bg-accent-hover transition-colors duration-150">
+                        Hubungi Kami
+                    </a>
+                @endif
             </div>
         </div>
     </div>
