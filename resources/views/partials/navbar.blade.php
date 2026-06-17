@@ -20,8 +20,8 @@
                 @php
                     $navLinks = [
                         ['label' => 'Home',        'url' => '/'],
-                        ['label' => 'Produk',      'url' => '/products'],
                         ['label' => 'Tentang','url' => '/company'],
+                        ['label' => 'Produk',      'url' => '/products'],
                         ['label' => 'Blog',        'url' => '/blog'],
                         ['label' => 'Galeri',      'url' => '/gallery'],
                         ['label' => 'Kontak',      'url' => '/contact'],
