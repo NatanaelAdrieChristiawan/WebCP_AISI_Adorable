@@ -10,31 +10,58 @@
      ============================================================ --}}
 <section class="relative min-h-screen flex items-center overflow-hidden bg-primary" x-data>
 
+    @if ($slides->isNotEmpty())
+    {{-- Background Image Slideshow --}}
+    <div class="absolute inset-0 z-0 overflow-hidden">
+        <div x-data="{ 
+                activeSlide: 0, 
+                slidesCount: {{ $slides->count() }},
+                init() {
+                    setInterval(() => {
+                        this.activeSlide = (this.activeSlide + 1) % this.slidesCount;
+                    }, 6000);
+                }
+             }"
+             class="relative w-full h-full">
+            @foreach ($slides as $index => $slide)
+                <div class="absolute inset-0 transition-all ease-in-out transform pointer-events-none"
+                     :class="activeSlide === {{ $index }} ? 'opacity-100 scale-105 z-10' : 'opacity-0 scale-100 z-0'"
+                     style="transition: all 2.5s ease-in-out;"
+                     x-cloak>
+                    <img src="{{ $slide->image_url }}" 
+                         alt="{{ $slide->title }}" 
+                         class="w-full h-full object-cover filter brightness-[0.35] contrast-[1.05]">
+                </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
+
     {{-- Background gradient overlay --}}
-    <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary-dark opacity-95"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/85 to-primary-dark/95 @if($slides->isNotEmpty()) opacity-80 @else opacity-95 @endif z-10 pointer-events-none"></div>
 
     {{-- Geometric fire-inspired decorations --}}
     {{-- Large triangle top-right --}}
-    <div class="absolute -top-24 -right-24 w-96 h-96 opacity-10">
+    <div class="absolute -top-24 -right-24 w-96 h-96 opacity-10 z-10 pointer-events-none">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
             <polygon points="100,10 190,190 10,190" fill="#C41230"/>
         </svg>
     </div>
     {{-- Medium triangle bottom-left --}}
-    <div class="absolute -bottom-16 -left-16 w-72 h-72 opacity-10">
+    <div class="absolute -bottom-16 -left-16 w-72 h-72 opacity-10 z-10 pointer-events-none">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
             <polygon points="100,10 190,190 10,190" fill="#C41230"/>
         </svg>
     </div>
     {{-- Flame-like abstract shape center-right --}}
-    <div class="absolute right-0 top-0 h-full w-1/3 opacity-5 hidden lg:block">
+    <div class="absolute right-0 top-0 h-full w-1/3 opacity-5 hidden lg:block z-10 pointer-events-none">
         <svg viewBox="0 0 300 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
             <path d="M150 580 C60 480 20 380 80 260 C120 180 100 100 150 20 C200 100 180 180 220 260 C280 380 240 480 150 580Z" fill="#C41230"/>
             <path d="M150 520 C90 440 60 360 100 270 C130 200 120 140 150 80 C180 140 170 200 200 270 C240 360 210 440 150 520Z" fill="#FF6B6B" opacity="0.4"/>
         </svg>
     </div>
     {{-- Accent dots pattern --}}
-    <div class="absolute top-1/4 right-1/4 opacity-10 hidden md:block">
+    <div class="absolute top-1/4 right-1/4 opacity-10 hidden md:block z-10 pointer-events-none">
         <div class="grid grid-cols-5 gap-3">
             @for ($i = 0; $i < 25; $i++)
                 <div class="w-1.5 h-1.5 rounded-full bg-accent"></div>
@@ -43,7 +70,7 @@
     </div>
 
     {{-- Hero Content --}}
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         <div class="max-w-3xl">
 
             {{-- Badge --}}
@@ -136,7 +163,7 @@
     </div>
 
     {{-- Scroll indicator --}}
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-white/40 anim-fade-up"
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 text-white/40 anim-fade-up"
          style="--anim-delay: 1200ms"
          x-init="$el.classList.add('anim-visible')">
         <span class="text-xs tracking-widest uppercase font-medium">Scroll</span>

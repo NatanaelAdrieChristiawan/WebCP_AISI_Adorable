@@ -30,7 +30,11 @@ class HomeController extends Controller
 
         $companyProfileUrl = CompanySetting::getFileUrl('company_profile_file');
 
-        return view('pages.home', compact('featuredProducts', 'featuredClients', 'latestPosts', 'companyProfileUrl'));
+        $slides = \App\Models\Gallery::where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('pages.home', compact('featuredProducts', 'featuredClients', 'latestPosts', 'companyProfileUrl', 'slides'));
     }
 }
 
