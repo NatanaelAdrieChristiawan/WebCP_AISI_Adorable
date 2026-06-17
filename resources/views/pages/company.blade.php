@@ -257,10 +257,7 @@
                         <h3 class="font-bold text-white text-base">Head Office &amp; Lokasi Produksi</h3>
                     </div>
                     <p class="text-white/75 text-sm leading-relaxed">
-                        Kawasan Industri Greenland Cluster Batavia,<br>
-                        Jl. Greenland II Blok AE No.15,<br>
-                        Deltamas, Cikarang-Bekasi,<br>
-                        Jawa Barat 17530
+                        {!! nl2br(e(\App\Models\CompanySetting::get('company_address', "Kawasan Industri Greenland Cluster Batavia,\nJl. Greenland II Blok AE No.15,\nDeltamas, Cikarang-Bekasi,\nJawa Barat 17530"))) !!}
                     </p>
                 </div>
 
@@ -273,7 +270,7 @@
                                   d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                         </svg>
                         <p class="text-xs text-text-light mb-0.5">Telepon</p>
-                        <p class="text-sm font-semibold text-text-dark">(62-21) 2909 2832/33</p>
+                        <p class="text-sm font-semibold text-text-dark">{{ \App\Models\CompanySetting::get('company_phone', '(62-21) 2909 2832/33') }}</p>
                     </div>
                     <div class="bg-surface rounded-xl p-5 border border-slate-100 anim-fade-up"
                          style="--anim-delay: 100ms"
@@ -284,10 +281,30 @@
                                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
                         <p class="text-xs text-text-light mb-0.5">Email</p>
-                        <p class="text-sm font-semibold text-text-dark break-all">marketing.aisi@aisi-aiken.com</p>
+                        <p class="text-sm font-semibold text-text-dark break-all">{{ \App\Models\CompanySetting::get('company_email', 'marketing.aisi@aisi-aiken.com') }}</p>
                     </div>
                 </div>
 
+                {{-- Map --}}
+                @php
+                    $companyMapsUrl = \App\Models\CompanySetting::get('company_maps_url');
+                @endphp
+                @if ($companyMapsUrl)
+                <div class="rounded-2xl overflow-hidden border border-slate-100 shadow-sm h-52 relative anim-fade-up"
+                     style="--anim-delay: 200ms"
+                     x-data
+                     x-intersect.once="$el.classList.add('anim-visible')">
+                    <iframe
+                        src="{{ $companyMapsUrl }}"
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                @else
                 {{-- Map placeholder --}}
                 <div class="rounded-2xl overflow-hidden border border-slate-100 shadow-sm h-52 bg-gradient-to-br from-slate-100 to-slate-200 flex flex-col items-center justify-center gap-2 anim-fade-up"
                      style="--anim-delay: 200ms"
@@ -300,6 +317,7 @@
                     <p class="text-slate-400 text-sm font-medium">Peta Lokasi</p>
                     <p class="text-slate-300 text-xs">Google Maps akan ditambahkan</p>
                 </div>
+                @endif
             </div>
         </div>
 
@@ -411,7 +429,7 @@
 
         <div class="text-center mb-12">
             <x-section-title
-                title="Sertifikasi &amp; Standar"
+                title="Sertifikasi & Standar"
                 subtitle="Bukti nyata komitmen kami terhadap kualitas, keselamatan, dan kelestarian lingkungan."
                 align="center"
             />
