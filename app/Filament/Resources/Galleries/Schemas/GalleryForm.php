@@ -26,9 +26,9 @@ class GalleryForm
                     ->directory('galleries')
                     ->disk('public')
                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                    ->maxSize(5120) // 5MB
+                    ->maxSize(10240) // 10MB
                     ->saveUploadedFileUsing(fn ($file) => ImageService::optimizeAndStore($file, 'galleries', 800, 800))
-                    ->helperText('Ukuran maksimal 5MB. Format: JPG, PNG, WebP. Gambar akan otomatis dioptimasi dan dikonversi ke WebP.')
+                    ->helperText('Ukuran maksimal 10MB. Format: JPG, PNG, WebP. Gambar akan otomatis dioptimasi dan dikonversi ke WebP.')
                     ->columnSpanFull(),
                 Toggle::make('is_active')
                     ->label('Tampilkan di Website')

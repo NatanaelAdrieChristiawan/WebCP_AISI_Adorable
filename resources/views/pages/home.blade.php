@@ -30,7 +30,7 @@
                      x-cloak>
                     <img src="{{ $slide->image_url }}" 
                          alt="{{ $slide->title }}" 
-                         class="w-full h-full object-cover filter brightness-[0.35] contrast-[1.05]">
+                         class="w-full h-full object-cover filter brightness-[0.55] contrast-[1.05]">
                 </div>
             @endforeach
         </div>
@@ -38,7 +38,11 @@
     @endif
 
     {{-- Background gradient overlay --}}
-    <div class="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/85 to-primary-dark/95 @if($slides->isNotEmpty()) opacity-80 @else opacity-95 @endif z-10 pointer-events-none"></div>
+    @if ($slides->isNotEmpty())
+        <div class="absolute inset-0 bg-gradient-to-br from-black/65 via-black/45 to-primary/80 z-10 pointer-events-none"></div>
+    @else
+        <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary-dark opacity-95 z-10 pointer-events-none"></div>
+    @endif
 
     {{-- Geometric fire-inspired decorations --}}
     {{-- Large triangle top-right --}}
