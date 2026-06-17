@@ -65,7 +65,7 @@
 
                     {{-- Text info inside overlay --}}
                     <div class="absolute bottom-0 inset-x-0 p-6 text-white z-10">
-                        <p class="font-bold text-xl mb-1 text-white">Bambang</p>
+                        <p class="font-bold text-xl mb-1 text-white">Bambang Suharto</p>
                         <p class="text-xs text-white/80 font-medium tracking-wide">Direktur Utama</p>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                 </p>
 
                 <div class="mt-8 border-t border-slate-100 pt-6">
-                    <p class="font-bold text-text-dark text-base">Bambang</p>
+                    <p class="font-bold text-text-dark text-base">Bambang Suharto</p>
                     <p class="text-sm text-text-light font-medium">Direktur Utama, PT Aisi Aiken Indonesia</p>
                 </div>
             </div>

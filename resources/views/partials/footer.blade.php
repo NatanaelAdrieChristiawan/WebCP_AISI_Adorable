@@ -66,7 +66,7 @@
                 </h4>
                 <ul class="space-y-4 text-sm text-white/65">
 
-                    {{-- Address --}}
+                    {{-- Address 1: Kantor & Produksi --}}
                     <li class="flex items-start gap-3">
                         <svg class="w-4 h-4 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -74,11 +74,29 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
-                        <span class="leading-relaxed">
-                            Kawasan Industri Greenland Cluster Batavia,<br>
-                            Jl. Greenland II Blok AE No.15,<br>
-                            Deltamas, Cikarang-Bekasi 17530
-                        </span>
+                        <div class="leading-relaxed">
+                            <strong class="text-white font-semibold text-xs uppercase block tracking-wider mb-0.5">Kantor &amp; Produksi</strong>
+                            <span class="text-white/65">
+                                Kawasan Industri Greenland Cluster Batavia,<br>
+                                Jl. Greenland II Blok AE No.15,<br>
+                                Deltamas, Cikarang-Bekasi 17530
+                            </span>
+                        </div>
+                    </li>
+
+                    {{-- Address 2: Alamat NPWP --}}
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        <div class="leading-relaxed">
+                            <strong class="text-white font-semibold text-xs uppercase block tracking-wider mb-0.5">Alamat NPWP</strong>
+                            <span class="text-white/65">
+                                Delta Technology Center 2, Jl. Kaliandra 1 Blok F6-1J,<br>
+                                Kel. Cicau, Kec. Cikarang Pusat, Bekasi 17530
+                            </span>
+                        </div>
                     </li>
 
                     {{-- Phone --}}
