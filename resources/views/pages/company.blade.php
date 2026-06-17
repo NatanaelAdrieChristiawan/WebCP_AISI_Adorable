@@ -51,20 +51,24 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-start">
 
-            {{-- Photo placeholder --}}
+            {{-- Photo Card --}}
             <div class="lg:col-span-2 flex flex-col items-center lg:items-start gap-4 anim-fade-right"
                  x-data
                  x-intersect.once="$el.classList.add('anim-visible')">
-                <div class="w-full max-w-xs mx-auto lg:mx-0 aspect-[3/4] bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex flex-col items-center justify-center gap-4 shadow-sm border border-slate-100">
-                    <svg class="w-20 h-20 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                              d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    <p class="text-slate-400 text-sm font-medium">Foto Direktur Utama</p>
+                <div class="relative w-full max-w-xs mx-auto lg:mx-0 aspect-[3/4] bg-slate-100 rounded-2xl overflow-hidden shadow-lg border border-slate-100 group">
+                    <img src="{{ asset('image/CEO/PakBambang.png') }}"
+                         alt="Bambang — Direktur Utama"
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+
+                    {{-- Soft Gradient Overlay at the bottom --}}
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-90"></div>
+
+                    {{-- Text info inside overlay --}}
+                    <div class="absolute bottom-0 inset-x-0 p-6 text-white z-10">
+                        <p class="font-bold text-xl mb-1 text-white">Bambang Suharto</p>
+                        <p class="text-xs text-white/80 font-medium tracking-wide">Direktur Utama</p>
+                    </div>
                 </div>
-                <p class="text-xs text-text-light italic text-center lg:text-left max-w-xs">
-                    * Foto akan segera diperbarui
-                </p>
             </div>
 
             {{-- Speech content --}}
@@ -85,15 +89,13 @@
 
                 {{-- Blockquote decorative --}}
                 <div class="relative pl-6 mb-6">
-                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-full"></div>
-                    <div class="bg-surface rounded-xl p-6 italic text-text-light leading-relaxed">
-                        <svg class="w-8 h-8 text-accent/30 mb-3" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-accent rounded-full"></div>
+                    <div class="bg-surface rounded-xl p-8 italic text-text-light leading-relaxed">
+                        <svg class="w-10 h-10 text-accent/20 mb-4" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
                         </svg>
-                        <p class="text-base">
-                            Foto dan sambutan Direktur Utama PT Aisi Aiken Indonesia akan segera tersedia.
-                            Kami berkomitmen untuk terus menghadirkan solusi fire protection terbaik bagi
-                            industri Indonesia dengan standar kualitas internasional.
+                        <p class="text-lg text-text-dark font-medium leading-relaxed not-italic">
+                            "Komitmen kami adalah menghadirkan presisi, inovasi, dan kualitas tanpa kompromi pada setiap produk yang kami hasilkan. Dengan semangat dan ketekunan, kami terus memperkuat keahlian, berinvestasi dalam teknologi mutakhir, dan membangun tim yang senantiasa berusaha menetapkan standar keunggulan baru di industri ini."
                         </p>
                     </div>
                 </div>
@@ -105,10 +107,10 @@
                     kami telah melayani lebih dari 30 klien korporat aktif di seluruh nusantara.
                 </p>
 
-                <p class="text-xs italic text-text-light/70 bg-surface rounded-lg px-4 py-3 border border-slate-100">
-                    * Konten sambutan lengkap dari Direktur Utama akan segera dipublikasikan
-                    oleh tim manajemen PT Aisi Aiken Indonesia.
-                </p>
+                <div class="mt-8 border-t border-slate-100 pt-6">
+                    <p class="font-bold text-text-dark text-base">Bambang Suharto</p>
+                    <p class="text-sm text-text-light font-medium">Direktur Utama, PT Aisi Aiken Indonesia</p>
+                </div>
             </div>
         </div>
 
