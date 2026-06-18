@@ -10,6 +10,7 @@ use App\Models\Gallery;
 use App\Models\Milestone;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -592,6 +593,92 @@ class DatabaseSeeder extends Seeder
             'is_active'   => true,
             'sort_order'  => 2,
         ]);
+
+        // =====================================================================
+        // 10. SERVICES
+        // =====================================================================
+        Service::truncate();
+        $services = [
+            // Pre-Sales Services
+            [
+                'title'       => 'Product Knowledge',
+                'category'    => 'pre-sales',
+                'description' => 'Pemahaman mendalam mengenai detail teknis, keunggulan, dan cara penggunaan setiap produk proteksi kebakaran AISI secara komprehensif.',
+                'icon'        => 'heroicon-o-book-open',
+                'image'       => 'services/pre_sales_product_knowledge.png',
+                'sort_order'  => 1,
+                'is_active'   => true,
+            ],
+            [
+                'title'       => 'Survey',
+                'category'    => 'pre-sales',
+                'description' => 'Analisis risiko dan inspeksi fisik lokasi proyek untuk menentukan jenis dan penempatan sistem pemadam kebakaran yang paling optimal dan sesuai regulasi.',
+                'icon'        => 'heroicon-o-magnifying-glass',
+                'image'       => 'services/pre_sales_survey.png',
+                'sort_order'  => 2,
+                'is_active'   => true,
+            ],
+            [
+                'title'       => 'Demonstration',
+                'category'    => 'pre-sales',
+                'description' => 'Peragaan langsung penggunaan alat pemadam api ringan (APAR) untuk memadamkan kebakaran skala kecil demi membuktikan efektivitas media pemadam AISI.',
+                'icon'        => 'heroicon-o-fire',
+                'image'       => 'services/pre_sales_demo.png',
+                'sort_order'  => 3,
+                'is_active'   => true,
+            ],
+            [
+                'title'       => 'Installation',
+                'category'    => 'pre-sales',
+                'description' => 'Instalasi perangkat dan sistem proteksi kebakaran secara presisi oleh tim teknisi terlatih berdasarkan spesifikasi desain standar keselamatan tinggi.',
+                'icon'        => 'heroicon-o-check-circle',
+                'image'       => 'services/pre_sales_installation.png',
+                'sort_order'  => 4,
+                'is_active'   => true,
+            ],
+
+            // After-Sales Services
+            [
+                'title'       => 'Warranty',
+                'category'    => 'after-sales',
+                'description' => 'Jaminan kualitas produk proteksi kebakaran AISI dengan perlindungan garansi resmi jangka panjang demi ketenangan pikiran dan proteksi investasi Anda.',
+                'icon'        => 'heroicon-o-shield-check',
+                'image'       => 'services/after_sales_warranty.png',
+                'sort_order'  => 5,
+                'is_active'   => true,
+            ],
+            [
+                'title'       => 'Spare Part Availability',
+                'category'    => 'after-sales',
+                'description' => 'Jaminan ketersediaan suku cadang orisinal AISI yang lengkap dan cepat untuk seluruh sistem pemadam api demi kelangsungan operasional proteksi.',
+                'icon'        => 'heroicon-o-cog-6-tooth',
+                'image'       => 'services/after_sales_spareparts.png',
+                'sort_order'  => 6,
+                'is_active'   => true,
+            ],
+            [
+                'title'       => 'Training',
+                'category'    => 'after-sales',
+                'description' => 'Program edukasi dan latihan penanggulangan kebakaran berkala bagi staf perusahaan untuk memastikan kesiapsiagaan penuh dalam menghadapi keadaan darurat.',
+                'icon'        => 'heroicon-o-academic-cap',
+                'image'       => 'services/after_sales_training.png',
+                'sort_order'  => 7,
+                'is_active'   => true,
+            ],
+            [
+                'title'       => 'Refill & Back-Up Unit',
+                'category'    => 'after-sales',
+                'description' => 'Layanan isi ulang media pemadam api secara cepat dan aman beserta penyediaan tabung backup sementara agar perlindungan gedung tetap terjaga tanpa henti.',
+                'icon'        => 'heroicon-o-arrow-path',
+                'image'       => 'services/after_sales_refill.png',
+                'sort_order'  => 8,
+                'is_active'   => true,
+            ],
+        ];
+
+        foreach ($services as $service) {
+            Service::create($service);
+        }
 
         Schema::enableForeignKeyConstraints();
     }

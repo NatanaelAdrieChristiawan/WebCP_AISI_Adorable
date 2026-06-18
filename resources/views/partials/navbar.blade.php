@@ -22,6 +22,7 @@
                         ['label' => 'Home',        'url' => '/'],
                         ['label' => 'Tentang','url' => '/company'],
                         ['label' => 'Produk',      'url' => '/products'],
+                        ['label' => 'Layanan',     'url' => '/services'],
                         ['label' => 'Blog',        'url' => '/blog'],
                         ['label' => 'Galeri',      'url' => '/gallery'],
                         ['label' => 'Kontak',      'url' => '/contact'],
