@@ -8,7 +8,7 @@
 {{-- ============================================================
      SECTION A — HERO
      ============================================================ --}}
-<section class="relative min-h-screen flex items-center overflow-hidden bg-primary" x-data>
+<section class="relative min-h-screen flex items-end overflow-hidden bg-primary" x-data>
 
     @if ($slides->isNotEmpty())
     {{-- Background Image Slideshow --}}
@@ -30,64 +30,39 @@
                      x-cloak>
                     <img src="{{ $slide->image_url }}" 
                          alt="{{ $slide->title }}" 
-                         class="w-full h-full object-cover filter brightness-[0.55] contrast-[1.05]">
+                         class="w-full h-full object-cover filter brightness-100">
                 </div>
             @endforeach
         </div>
     </div>
     @endif
 
-    {{-- Background gradient overlay --}}
-    @if ($slides->isNotEmpty())
-        <div class="absolute inset-0 bg-gradient-to-br from-black/65 via-black/45 to-primary/80 z-10 pointer-events-none"></div>
-    @else
+    {{-- Background overlay: Only applied when there are no slideshow images --}}
+    @if (!$slides->isNotEmpty())
         <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary-dark opacity-95 z-10 pointer-events-none"></div>
     @endif
 
-    {{-- Geometric fire-inspired decorations --}}
-    {{-- Large triangle top-right --}}
-    <div class="absolute -top-24 -right-24 w-96 h-96 opacity-10 z-10 pointer-events-none">
-        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="100,10 190,190 10,190" fill="#C41230"/>
-        </svg>
-    </div>
-    {{-- Medium triangle bottom-left --}}
-    <div class="absolute -bottom-16 -left-16 w-72 h-72 opacity-10 z-10 pointer-events-none">
-        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="100,10 190,190 10,190" fill="#C41230"/>
-        </svg>
-    </div>
-    {{-- Flame-like abstract shape center-right --}}
-    <div class="absolute right-0 top-0 h-full w-1/3 opacity-5 hidden lg:block z-10 pointer-events-none">
-        <svg viewBox="0 0 300 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
-            <path d="M150 580 C60 480 20 380 80 260 C120 180 100 100 150 20 C200 100 180 180 220 260 C280 380 240 480 150 580Z" fill="#C41230"/>
-            <path d="M150 520 C90 440 60 360 100 270 C130 200 120 140 150 80 C180 140 170 200 200 270 C240 360 210 440 150 520Z" fill="#FF6B6B" opacity="0.4"/>
-        </svg>
-    </div>
-    {{-- Accent dots pattern --}}
-    <div class="absolute top-1/4 right-1/4 opacity-10 hidden md:block z-10 pointer-events-none">
-        <div class="grid grid-cols-5 gap-3">
-            @for ($i = 0; $i < 25; $i++)
-                <div class="w-1.5 h-1.5 rounded-full bg-accent"></div>
-            @endfor
-        </div>
-    </div>
+    {{-- Bottom-to-center dark vignette: makes text readable without covering the photo --}}
+    @if ($slides->isNotEmpty())
+        <div class="absolute inset-0 z-10 pointer-events-none"
+             style="background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 35%, transparent 65%);"></div>
+    @endif
 
-    {{-- Hero Content --}}
-    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+    {{-- Hero Content — anchored to the bottom --}}
+    <div class="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-20">
         <div class="max-w-3xl">
 
             {{-- Badge --}}
-            <div class="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 rounded-full px-4 py-1.5 mb-8 anim-fade-down"
-                 style="--anim-delay: 200ms"
+            <div class="inline-flex items-center gap-2 bg-black/50 border border-white/20 rounded-full px-4 py-1.5 mb-6 anim-fade-down"
+                 style="--anim-delay: 200ms;"
                  x-init="$el.classList.add('anim-visible')">
                 <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
                 <span class="text-white/90 text-sm font-medium tracking-wide">ISO 9001:2015 &amp; ISO 14001:2015 Certified</span>
             </div>
 
             {{-- H1 Headline --}}
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 anim-blur-in"
-                style="--anim-delay: 400ms"
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-5 anim-blur-in"
+                style="--anim-delay: 400ms; text-shadow: 0 2px 8px rgba(0,0,0,0.8);"
                 x-init="$el.classList.add('anim-visible')">
                 Solusi Perlindungan Kebakaran
                 <span class="text-accent">Terbaik</span>
@@ -95,8 +70,8 @@
             </h1>
 
             {{-- Subheadline --}}
-            <p class="text-white/75 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl anim-fade-up"
-               style="--anim-delay: 600ms"
+            <p class="text-white/85 text-base md:text-lg leading-relaxed mb-8 max-w-2xl anim-fade-up"
+               style="--anim-delay: 600ms; text-shadow: 0 1px 4px rgba(0,0,0,0.7);"
                x-init="$el.classList.add('anim-visible')">
                 Produsen <strong class="text-white font-semibold">Fire Protection &amp; Fire Fighting Products</strong>
                 bersertifikat ISO 9001:2015 &amp; ISO 14001:2015 —
@@ -137,26 +112,25 @@
                     Unduh Company Profile
                 </span>
                 @endif
-
             </div>
 
             {{-- Trust indicators --}}
-            <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 text-white/55 text-sm anim-fade-up"
-                 style="--anim-delay: 1000ms"
+            <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 anim-fade-up"
+                 style="--anim-delay: 1000ms;"
                  x-init="$el.classList.add('anim-visible')">
-                <span class="flex items-center gap-2">
+                <span class="flex items-center gap-2 text-white/75 text-sm" style="text-shadow: 0 1px 4px rgba(0,0,0,0.8);">
                     <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
                     Berdiri sejak 2011
                 </span>
-                <span class="flex items-center gap-2">
+                <span class="flex items-center gap-2 text-white/75 text-sm" style="text-shadow: 0 1px 4px rgba(0,0,0,0.8);">
                     <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
                     30+ Klien Korporat
                 </span>
-                <span class="flex items-center gap-2">
+                <span class="flex items-center gap-2 text-white/75 text-sm" style="text-shadow: 0 1px 4px rgba(0,0,0,0.8);">
                     <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
@@ -167,10 +141,9 @@
     </div>
 
     {{-- Scroll indicator --}}
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 text-white/40 anim-fade-up"
+    <div class="absolute bottom-6 right-8 z-20 flex flex-col items-center gap-1 text-white/40 anim-fade-up"
          style="--anim-delay: 1200ms"
          x-init="$el.classList.add('anim-visible')">
-        <span class="text-xs tracking-widest uppercase font-medium">Scroll</span>
         <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>
