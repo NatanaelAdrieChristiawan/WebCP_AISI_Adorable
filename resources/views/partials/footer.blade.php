@@ -24,7 +24,7 @@
                     Distributor dan kontraktor sistem fire protection berpengalaman.
                 </p>
                 <p class="text-white/40 text-xs mt-6 pt-4 border-t border-white/10">
-                    &copy; {{ date('Y') }} PT Aisi Aiken Indonesia. Designed by <a href="https://adorable.id" target="_blank" rel="noopener" class="hover:underline text-white/60">Adorable Media</a>
+                    &copy; {{ date('Y') }} PT Aisi Aiken Indonesia.
                 </p>
             </div>
 
