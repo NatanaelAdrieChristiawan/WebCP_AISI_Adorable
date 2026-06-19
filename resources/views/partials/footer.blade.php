@@ -24,7 +24,7 @@
                     Distributor dan kontraktor sistem fire protection berpengalaman.
                 </p>
                 <p class="text-white/40 text-xs mt-6 pt-4 border-t border-white/10">
-                    &copy; {{ date('Y') }} PT Aisi Aiken Indonesia. All Rights Reserved.
+                    &copy; {{ date('Y') }} PT Aisi Aiken Indonesia. Designed by <a href="https://adorable.id" target="_blank" rel="noopener" class="hover:underline text-white/60">Adorable Media</a>
                 </p>
             </div>
 
@@ -144,7 +144,7 @@
          x-intersect.once="$el.classList.add('anim-visible')">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
             <p class="text-white/40 text-xs">
-                &copy; {{ date('Y') }} PT Aisi Aiken Indonesia. All Rights Reserved.
+                &copy; {{ date('Y') }} PT Aisi Aiken Indonesia. Designed by <a href="https://adorable.id" target="_blank" rel="noopener" class="hover:underline text-white/60">Adorable Media</a>
             </p>
             <p class="text-white/30 text-xs">
                 Fire Protection &bull; Fire Alarm &bull; Suppression System
