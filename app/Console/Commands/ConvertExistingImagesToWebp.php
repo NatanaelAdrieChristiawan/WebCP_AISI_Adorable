@@ -107,7 +107,7 @@ class ConvertExistingImagesToWebp extends Command
         $bar->start();
 
         foreach ($galleries as $gallery) {
-            $this->convertField($gallery, 'image', 'galleries', $dryRun, 800, 800);
+            $this->convertField($gallery, 'image', 'galleries', $dryRun, 1920, 1080, 85);
             $bar->advance();
         }
 
@@ -156,7 +156,7 @@ class ConvertExistingImagesToWebp extends Command
         bool $dryRun,
         int $maxWidth = 1920,
         int $maxHeight = 1080,
-        int $quality = 80,
+        int $quality = 85,
     ): void {
         $currentPath = $model->{$field};
 

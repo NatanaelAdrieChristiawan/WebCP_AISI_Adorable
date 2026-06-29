@@ -25,7 +25,7 @@ class ImageService
         string $directory,
         int $maxWidth = 1920,
         int $maxHeight = 1080,
-        int $quality = 80,
+        int $quality = 85,
     ): string {
         $image = Image::decode($file->getRealPath());
 
@@ -60,7 +60,7 @@ class ImageService
         string $directory,
         int $maxWidth = 1920,
         int $maxHeight = 1080,
-        int $quality = 80,
+        int $quality = 85,
     ): ?string {
         // Skip if already webp
         if (str_ends_with(strtolower($currentPath), '.webp')) {
